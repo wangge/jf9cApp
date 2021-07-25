@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>所有店铺</title>
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/goods_list.css">
+<link rel="stylesheet" type="text/css" href="css/member.css">
+<link rel="stylesheet" type="text/css" href="css/base.css">
+</head>
+<body>
+<header id="header" class="fixed fixed-Width">
+  <div class="header-box">
+  	<div class="header-l"><a onclick="WTback(this)" href="javascript:void(0);"><i class="back"></i></a></div>
+    <div class="header-tab"><a onclick="WtTopUrl(this)" url="shop.html" class="cur">所有店铺</a><a onclick="WtTopUrl(this)" url="shop_class.html">店铺分类</a></div>
+  </div>
+</header>
+<div class="wtm-main-box fixed-Width">
+ <div class="wtm-inp-con">
+      <ul class="form-box">
+<li class="form-item">
+          <h4>店铺所在地：<i></i></h4>
+          <div class="input-box">
+            <input name="area_info" type="text" class="inp" id="area_info" autocomplete="off"  placeholder="全国" readonly />  <span class="input-del"></span>
+          </div>
+        </li>
+</ul>
+</div>
+
+<div class="wtm-order-search">
+      <span><input type="text" oninput="writeClear($(this));" id="shopkeyword" name="keyword" placeholder="输入店铺名称或关键字" maxlength="50" autocomplete="on">
+      <span class="input-del"></span></span>
+      <input type="button" value="&nbsp;" id="serach_store">
+  </div>
+      <ul class="favorites-store-list" id="categroy-right"></ul>
+</div>
+<script type="text/html" id="category-one">
+    <%if(store_list.length > 0){%>
+        <% for (var k in store_list) {
+          var v = store_list[k];
+          var store_desccredit = formatnum(v.store_credit.store_desccredit.credit);
+          var store_servicecredit = formatnum(v.store_credit.store_servicecredit.credit);
+          var store_deliverycredit = formatnum(v.store_credit.store_deliverycredit.credit);
+        %>
+          <section class="rzs_info border_top border_bottom">
+          <dl>
+            <a onclick="WtOpenUrl(this)" url="html/store.html?store_id=<%=v.store_id %>">
+            <span><img src="<%=v.store_avatar %>"></span>
+            </a>
+              <dt>
+              <a onclick="WtOpenUrl(this)" url="html/store.html?store_id=<%=v.store_id %>"><strong></strong></a>
+              <strong><a onclick="WtOpenUrl(this)" url="html/store.html?store_id=<%=v.store_id %>"><%=v.store_name %></a><i class="leixing"><%=v.grade_id %></i></strong>
+              <p>好评率 <%=v.store_credit_percent %>%，共 <%=v.goods_count %> 件宝贝</p>
+              <p>最近成交 <%=v.num_sales_jq %> 件宝贝</p>
+             </dt>
+            <dd>
+			<a href="javascript:void(0)" onclick="favoriteStore('<%=v.store_id %>');"><i>收藏</i></a>
+			<p href="javascript:void(0)" class="distance"><em><%=v.distance %></em></p>
+			</dd>
+          </dl>
+         <!-- <ul>
+          <li><span>宝贝描述：</span><div class="goods-raty"><i class="star<%=store_desccredit %>"></i><b> <%=v.store_credit.store_desccredit.credit %>分 </b></div></li>
+          <li><span>卖家服务：</span><div class="goods-raty"><i class="star<%=store_servicecredit %>"></i><b> <%=v.store_credit.store_servicecredit.credit %>分</b></div></li>
+          <li><span>物流服务：</span><div class="goods-raty"><i class="star<%=store_deliverycredit %>"></i><b> <%=v.store_credit.store_deliverycredit.credit %>分</b></div></li>
+          </ul>-->
+          <div class="index_taocan">
+          <%if(v.search_list_goods.length > 0 ){%>
+            <% for (var j in v.search_list_goods) { var vt = v.search_list_goods[j]; %>
+                <a title="<%=vt.goods_name %>" onclick="WtOpenUrl(this)" url="html/goods_detail.html?goods_id=<%=vt.goods_id %>">
+                  <dl>
+                      <dt><img src="<%=vt.goods_image %>" class="B_eee"><em>¥<%=vt.goods_price %></em></dt>
+                      <dd><%=vt.goods_name %></dd>
+                  </dl>
+                  </a>
+           <%}%>
+          <%}%>
+            </div>
+          </section>
+        <%}%>
+    <%}else{%>
+    <div class="wtm-norecord search">
+      <div class="norecord-ico"><i></i></div>
+        <dl>
+          <dt>没有找到任何相关信息</dt>
+          <dd>选择或搜索其它商家名称...</dd>
+        </dl>
+    </div>
+  <%}%>
+</script>	
+<div id="allmap" style="display:none"></div>
+<input type="hidden" name="key" value="4">
+<input type="hidden" name="order" value="1">
+<input type="hidden" name="page" value="10">
+<input type="hidden" name="curpage" value="1">
+<input type="hidden" name="hasmore">
+<input type="hidden" name="sc_id" value="">
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/simple-plugin.js"></script>
+<script type="text/javascript" src="js/shop.js"></script>
+</body>
+</html>

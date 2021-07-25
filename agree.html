@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+	  <link rel="stylesheet" type="text/css" href="css/common.css">
+    <style>
+    	html,body{
+    		height: 98%;
+			background: transparent;
+			-webkit-touch-callout: none;
+			font-family: Tahoma, Geneva, sans-serif;
+			font-style: normal;
+		}
+		#dialog{
+			background-color: #e7e7e7; border-radius: 6px;
+			position: absolute; margin: auto;
+			left: 0; right: 0; top: 0; bottom: 0;
+			width: 300px; height: 225px;
+			-webkit-transition: all .1s;
+			transition:all .1s;
+			-webkit-transform: scale(0);
+			transform:scale(0);
+			opacity: 0;
+		}
+		#dialog.in{
+			-webkit-transform: scale(1);
+			transform:scale(1);
+			opacity: 1;
+		}
+		img{
+			padding:15px;
+		}
+    </style>
+</head>
+<body>
+	<div id="dialog">
+	<div class="simple-dialog-wrapper"><div class="s-dialog-mask"></div><div class="s-dialog-wrapper s-dialog-skin-red"><div class="s-dialog-content"><div class="invite-txt">温馨提示</div>
+	<p style='text-align: left;padding-top:0.5rem;'>欢迎使用<span id="appname">本</span>APP，我们非常重视你的隐私保护和个人信息保护。在你使用本APP服务前，请认真阅读<a href='html/member/document.html?on_index=1' style='color:#f60;'>《用户服务协议》</a>及<a href='html/member/privacy.html?on_index=1' style='color:#f60;'>《隐私政策》</a>全部条款，你同意并接受全部条款后再开始使用我们的服务。</p>
+	</div><div class="s-dialog-btn-wapper"><a href="javascript:void(0)" class="s-dialog-btn-cancel" id="dialog_exit">退出</a><a href="javascript:void(0)"  class="s-dialog-btn-ok" id="dialog_ok">同意</a></div></div></div>
+	</div>
+</body>
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript">
+	$('#dialog').addClass('in');
+	apiready = function(){
+		document.getElementById('appname').innerHTML = api.appName;
+		$(document.body).on('touchend',function(e){
+			var dialog = $("#dialog")[0];
+			if(!$.contains(dialog, e.target)){
+				//点击空白处关闭
+				/*$('#dialog').removeClass('in');
+				setTimeout(function(){
+					api.closeFrame();
+				},200);*/
+			}
+		});
+		$("#dialog_ok").click(function(){
+			$api.setStorage('appok','yes');
+			setTimeout(function(){
+				api.closeFrame();
+			},200);
+		});
+
+		$("#dialog_exit").click(function(){
+			$api.rmStorage('appok');
+				api.closeWidget({
+				silent: true
+			});
+		});
+	};
+</script>
+</html>

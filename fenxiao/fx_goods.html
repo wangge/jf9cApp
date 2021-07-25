@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>商品信息</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<link rel="stylesheet" type="text/css" href="../css/base.css">
+<link rel="stylesheet" type="text/css" href="../css/share.min.css">
+<link rel="stylesheet" type="text/css" href="../css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="../css/goods.css">
+<style>
+.codebox{width:100px;height:120px;padding:0.2rem;overflow:hidden;border-radius:0.2rem;}
+.inlineBlock{display:block;width:100%;margin:0 auto;text-align:center;}
+.qrcodeCon{width:100px;height:100px;}
+.qrcodeConIn{width:100%;height:100%;}
+.inlineBlock h3{padding-top:0.2rem;font-size:0.45rem;letter-spacing:0.04rem;}
+.qrcodeConIn img{width:100%;height:100%;}
+.qrcodeConIn canvas{width:100%;height:100%;}
+.copy_box{width:1px;height:1px;opacity:0}
+.social-share-url{position:relative;display:inline-block;width:32px;height:32px;font-size:20px;border-radius:50%;line-height:32px;border:1px solid #0087ff;color:#666;text-align:center;vertical-align:middle;transition:background 0.6s ease-out 0s;}
+.social-share-url a{position:relative;text-decoration:none;margin:4px;display:inline-block;outline:none;}
+.icon-url{background-image:url("../images/ico_link2.png");background-repeat:no-repeat;background-position:50% 50%;background-size:60%;opacity:1;}
+.icon-url:hover{qrcodeConIn background:#0087ff;background-image:url("../images/ico_link.png");background-repeat:no-repeat;background-position:50% 50%;background-size:60%;}
+html,body{width:100%;height:100%;}
+.box{display:none;width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(51,51,51,1);z-index:98;overflow:hidden;}
+.container{width:320px;height:auto;max-height:640px;overflow:hidden;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;z-index:100;}
+#download_img img{width:320px;}
+.close{position:absolute;top:10px;right:20px;z-index:101;width:24px;height:24px;background-image:url("../images/close_b.png");background-repeat:no-repeat;background-position:50% 50%;background-size:100%;opacity:1;}
+#poster_img{position:absolute;bottom:10px;left:0;z-index:101;background:#ccc;opacity:1;width:100%;height:1rem;line-height:1rem;text-align:center;font-size:0.65rem;font-weight:bolder;background:#ED5564;padding:0.4rem 0;color:#fff;}
+.fixed-Width{max-width:640px;}
+.goods-detail-item{min-height:180px;height:100%;display:table-cell;width:640px;}
+.goods-detail-name{border-top:0;}
+.goods-detail-price{background:transparent}
+.member_name{position:absolute;bottom:0.4rem;padding:0.5rem;font-size:0.55rem;color:#999;}
+</style>
+</head>
+<body>
+<div class="box">
+    <span class="close"></span>
+    <div class="container" id="download_img">
+    </div>
+    <a id="poster_img" href="javascript:;">保存海报</a>
+</div>
+<header id="header" class="transparent fixed-Width">
+  <div class="header-box">
+    <div class="header-l"><a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <ul class="header-nav">
+    </ul>
+    <div class="header-r">
+        <a id="share_link" href="javascript:;"><i class="share"></i></a>
+        <span><a id="share_poster" href="javascript:;"><i class="poster"></i><sup></sup></a></span>
+      </div>
+  </div>
+</header>
+<div id="boximg" class="fixed-Width">
+    <div class="goods-detail-top" style="position: relative">
+		<div class="goods-detail-pic">
+			<ul>
+
+				<li class="goods_pic_url" style="width: 100%; max-height: 360px; overflow: hidden; margin: 0 auto; text-align: center"></li>
+
+			</ul>
+		</div>
+    </div>
+<div class="goods-detail-item">
+<div style="float:right; padding-top:0.2rem; width:108px; height:128px;">
+    <div class="codebox" id="codebox">
+    <div class="inlineBlock">
+        <div id="qrcodeCon" class="qrcodeCon">
+            <div id="qrcodeConIn" class="qrcodeConIn"></div>
+        </div>
+<div class="inlineBlock">
+        <h3>长按或扫码购买</h3>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div style="width:100%">
+	<div class="goods-detail-name">
+		<dl> 
+			<dt class="goods_name"></dt>
+			<dd></dd>
+		</dl>
+	</div>
+	<div class="goods-detail-price">
+		<dl>
+			<dt class="goods_price">
+			</dt>
+			<dd class="goods_marketprice"></dd>
+		</dl>
+	</div>
+		<!--<div class="member_name"></div>-->
+	</div>
+    </div>
+  	</div>
+<div class="wtm-bottom-mask"></div>
+<div class="body-info fixed-Width"><div class="goods-detail-info"><div class="title"><a href="javascript:void(0);">商品详情</a></div></div><div class="default goods_body"></div>
+    </div>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/wtscroll-load.js"></script>
+<script type="text/javascript" src="js/qrcode.js" charset="utf-8"></script>
+<script type="text/javascript" src="../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../js/html2canvas.min.js"></script>
+<script type="text/javascript" src="js/fx_goods.js"></script>
+</body>
+</html>

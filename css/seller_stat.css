@@ -1,0 +1,39 @@
+@charset "utf-8";
+/*背景底 黄色*/
+.alert{color: #C09853;font-size: 0.65rem; background-color: #FCF8E3; padding: 8px 35px 8px 14px; margin: 10px auto; border: 1px solid #FBEED5; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);}
+.alert a{color: #927036; text-decoration: underline;}
+.alert h4{font-size: 16px; font-weight: bold; line-height: 1.5em; margin-bottom: 2px;}
+.alert-success{color: #468847; background-color: #DFF0D8; border-color: #D6E9C6;}
+.alert-info{color: #3A87AD; background-color: #D9EDF7; border-color: #BCE8F1;}
+.alert-error{color: #B94A48; background-color: #F2DEDE; border-color: #EED3D7;}
+.alert-block{padding-top: 14px; padding-bottom: 14px;}
+.alert ul{margin-bottom: 10px}
+.alert li{margin: 4px 0;}
+.alert i{font-size: 0.65rem; margin-right: 4px; vertical-align: middle;}
+.mt5 {margin-top: 0.5rem !important;}
+.alert h3 { font-size: 0.7rem; font-weight: 700;}
+/*通用表格*/
+
+.wtsc-default-table { line-height:20px; width: 100%; border-collapse: collapse; clear: both;font-size: 0.65rem}
+
+.wtsc-default-table thead th { line-height: 20px; color: #999; background-color: #FFF; text-align:center; height: 20px; padding: 8px 0; border-bottom: solid 1px #DDD; }
+
+.wtsc-default-table thead td,
+
+.wtsc-default-table tfoot th { background-color: #FFF; height: 22px; padding: 5px 0; border-bottom: solid 1px #E6E6E6;}
+
+.wtsc-default-table tfoot th { border-top: solid 1px #E6E6E6;}
+
+.wtsc-default-table thead td label, .wtsc-default-table tfoot th label { color: #555; display: inline; float: left; margin-right: 10px; cursor: pointer; }
+
+.wtsc-default-table tbody th { background-color: #FAFAFA; border: solid #E6E6E6; border-width: 1px 0; padding: 4px 0;}
+
+.wtsc-default-table tbody th span { display: inline-block; vertical-align: middle; margin-right: 30px;}
+
+.wtsc-default-table tbody th span.goods-name { text-overflow: ellipsis; white-space: nowrap; width: 240px; height: 20px; overflow: hidden;}
+
+.wtsc-default-table tbody td { color: #999; background-color: #FFF; text-align: center; padding: 10px 0;}
+
+.wtsc-default-table tbody td strong { color: #666;}
+
+.wtsc-default-table input { border: 1px solid #e0dddd; outline: none; height: 28px; text-indent: 5px; -webkit-appearance: none; width: 72%; border-radius: 5px; background: #fff; }

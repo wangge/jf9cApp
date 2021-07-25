@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta charset="UTF-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+  <meta name="apple-mobile-web-app-capable" content="yes" /> 
+  <meta name="apple-touch-fullscreen" content="yes" /> 
+  <meta name="format-detection" content="telephone=no" /> 
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" /> 
+  <meta name="format-detection" content="telephone=no" /> 
+  <meta name="msapplication-tap-highlight" content="no" /> 
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" /> 
+  <title>我的推广</title> 
+  <link rel="stylesheet" type="text/css" href="../../css/common.css" /> 
+  <link rel="stylesheet" type="text/css" href="../../css/member.css" />
+<script src="html5plus://ready"></script>
+ </head> 
+ <body> 
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"><a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <div class="header-title">
+      <h1>我的推广</h1>
+    </div>
+  </div>
+</header>
+  <div class="wtm-main-box"> 
+   <div id="fixed_nav" class="wtm-single-nav"> 
+    <ul id="filtrate_ul" class="w33h"> 
+     <li><a onclick="WtOpenUrl(this)" url="member_invite1.html">一级下线</a></li> 
+     <li><a onclick="WtOpenUrl(this)" url="member_invite2.html">二级下线</a></li> 
+     <li class="selected"><a href="javascript:void(0);">三级下线</a></li>
+    </ul> 
+   </div> 
+   <ul id="pointsloglist" class="wtm-log-list"> 
+   </ul> 
+  </div> 
+  <div class="fix-block-r"> 
+   <a href="javascript:void(0);" class="gotop-btn gotop hide" id="goTopBtn"><i></i></a> 
+  </div> 
+   
+  <script type="text/html" id="list_model">
+
+        <% if(list.length >0){%>
+
+        <% for (var k in list) { var v = list[k]; %>
+
+            <li>
+
+				<div class="detail">会员：<%=v.member_name;%>，购买的订单数量：<%=v.invite_num;%></div>             
+
+                <div class="money add"><%=v.invite_amount;%></div>
+
+               
+
+                <time class="date">积分</time>
+
+            </li>
+
+        <%}%>
+
+        <li class="loading"><div class="spinner"><i></i></div>数据读取中</li>
+
+        <%}else {%>
+
+        <div class="wtm-norecord pdre">
+
+            <div class="norecord-ico"><i></i></div>
+
+            <dl>
+
+                <dt>您还没有下线哦</dt>
+
+				<dd>点击下面链接去邀请好友吧</dd>
+
+				<a onclick="WtOpenUrl(this)" url="member_invite.html" class="btn">去推广</a>
+
+            </dl>
+
+        </div>
+
+        <%}%>
+
+</script> 
+  <script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script> 
+  <script type="text/javascript" src="../../js/zepto.min.js"></script> 
+  <script type="text/javascript" src="../../js/template.js"></script> 
+  <script type="text/javascript" src="../../js/common.js"></script> 
+  <script type="text/javascript" src="../../js/zepto.waypoints.js"></script> 
+  <script type="text/javascript" src="../../js/wtscroll-load.js"></script> 
+  <script>
+apiready=function(){
+    //监听返回事件
+    api.addEventListener({
+        name: 'LoginTo'
+    }, function(ret, err) {
+        location.reload();
+    });
+}
+    $(function(){
+
+        var key = $api.getStorage('key');
+
+        if (!key) {
+            window.location.href = 'login.html';
+			return false;
+        }
+
+        //渲染list
+
+        var load_class = new wtScrollLoad();
+
+        load_class.loadInit({
+
+            'url':MapiUrl + '/index.php?w=member_invite&t=invitethir',
+
+            'getparam':{'key':key},
+
+            'tmplid':'list_model',
+
+            'containerobj':$("#pointsloglist"),
+
+            'iIntervalId':true
+
+        });
+
+        
+
+    });
+
+</script>  
+ </body>
+</html>

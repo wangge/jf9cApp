@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title id="art_name"></title>
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<link rel="stylesheet" type="text/css" href="../css/goods_list.css">
+<link rel="stylesheet" type="text/css" href="../css/member.css">
+<style>
+body {background:#fff;}
+</style>
+</head>
+<body>
+<header id="header" class="fixed">
+	<div class="header-box">
+		<div class="header-l">
+			<a onclick="WTback(this)" href="javascript:;">
+				<i class="back"></i>
+			</a>
+		</div>
+		<div class="header-inp">
+			<i class="icon"></i>
+			<input type="text" autocomplete="on" maxlength="50" placeholder="请输入搜索关键字" name="artkeyword" id="artkeyword" oninput="writeClear($(this));" value="" class="search-input" data-type="artkeyword" /><span class="input-del"></span>
+		</div>
+		<div class="header-r">
+			<a id="serach_article" href="javascript:void(0);" class="search-btn"></a>
+		</div>
+	</div>
+
+</header>
+		<div class="wtm-main-box">
+      <div id="article-content"></div>
+</div>
+<script type="text/html" id="article">
+		<div class="article-title"><%=article_title%></div>
+		<div class="article-content"></div>
+	</div>
+</script>
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/html/article_show.js"></script>
+</body>
+</html>

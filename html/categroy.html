@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>商品分类</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<link rel="stylesheet" type="text/css" href="../css/categroy.css">
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <!--<div class="header-l"> <a href="categroy.html"><i class="categroy"></i></a></div>-->
+    <div class="header-inp"><i class="icon"></i> <span class="search-input" id="keyword">请输入关键字</span> </div>
+    <!--<div class="header-r"> <a id="header-nav" class="search-btn" href="search.html"></a> </div>-->
+  </div>
+</header>
+<div class="wtm-main-box">
+  <div class="categroy-left" id="categroy-left"></div>
+  <div class="categroy-right" id="categroy-right"></div>
+</div>
+<footer id="footer"></footer>
+</body>
+<script type="text/html" id="category-one">
+	<ul class="categroy-list">
+		
+		<% var first = 0; for(var i = 0;i<list.length;i++){ if(list[i].is_show==1){ continue;} %>
+			<li class="category-item <% if(first==0){%> selected <% } %>">
+				<a href="javascript:void(0);" class="category-item-a category" date-id="<%= list[i].gc_id %>">
+					<div class="ci-fcategory-name"><%= list[i].gc_name %></div>
+				</a>
+			</li>
+		<% first++; } %>
+	</ul>
+</script>
+<script type="text/html" id="category-two">
+	<dl class="categroy-child-list">
+		<% var c=0; for(var i=0; i<gc_list.length; i++) { if(gc_list[i].is_show==1){ continue;} var col = c % 10;c++; %>
+			<dt><a onclick="WtOpenUrl(this)" url="goods_list.html?gc_id=<%= gc_list[i].gc_id %>&gc_name=<%= gc_list[i].gc_name %>"><i class="col<%= col %>"></i><%= gc_list[i].gc_name %></a></dt>
+			<% if(gc_list[i].child!=null){for(var j=0; j<gc_list[i].child.length; j++) { if(gc_list[i].child[j].is_show==1){ continue;} %>
+				<dd><a onclick="WtOpenUrl(this)" url="goods_list.html?gc_id=<%= gc_list[i].child[j].gc_id %>">
+				<% if(gc_list[i].child[j].mb_img !=''){%>
+				<img src="<%= gc_list[i].child[j].mb_img %>">
+				<% } %>
+				<p><%= gc_list[i].child[j].gc_name %></p></a></dd>
+			<% }} %>
+		<% } %>
+	</dl>
+</script>
+<script> var navigate_id ="2";</script>
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/iscroll.js"></script>
+<script type="text/javascript" src="../js/html/categroy.js"></script>
+</html>

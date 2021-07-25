@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>认证分销员</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<link rel="stylesheet" type="text/css" href="../css/member.css">
+<style type="text/css">
+input[type="radio"]{ -webkit-appearance: radio; }
+</style>
+</head>
+<body>
+  <header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"><a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <div class="header-title">
+      <h1>认证分销员</h1>
+    </div>
+  </div>
+
+</header>
+<div class="wtm-main-box">
+   <form>
+    <div class="wtm-inp-con">
+      <ul class="form-box">
+        <li class="form-item">
+          <h4>用户名</h4>
+          <div class="txt-box" id="member_name"></div>
+        </li>
+        <li class="form-item">
+          <h4>手机号码</h4>
+          <div class="txt-box" id="member_mobile"></div>
+        </li>
+		<li class="form-item">
+          <h4>结算方式</h4>
+          <div class="txt-box">
+           <label class="checked"><input name="bill_type_code" value="alipay" checked="checked" type="radio">&nbsp;支付宝</label>
+              &nbsp;&nbsp;
+              <label><input name="bill_type_code" value="bank" type="radio">&nbsp;银行账号</label>
+        </div>
+        </li>
+		<li class="form-item">
+          <h4>收款人</h4>
+          	<div class="input-box">
+            <input type="text" name="bill_user_name" id="bill_user_name" class="inp" maxlength="30" placeholder="请输入收款人" oninput="writeClear($(this));" onFocus="writeClear($(this));"/><span class="input-del"></span>
+			</div>
+        </li>
+		<li class="form-item">
+          <h4>收款账号</h4>
+          	<div class="input-box">
+            	<input type="text" name="bill_type_number" id="bill_type_number" class="inp" maxlength="50" placeholder="请输入收款账号" oninput="writeClear($(this));" onFocus="writeClear($(this));"/><span class="input-del"></span>
+			</div>
+        </li>
+		<li class="form-item" id="bank_name" style="display: none;">
+          <h4>开户行</h4>
+          	<div class="input-box">
+            	<input type="text" name="bill_bank_name" id="bill_bank_name" class="inp no-follow" maxlength="50" placeholder="请输入开户行" oninput="writeClear($(this));" onFocus="writeClear($(this));"/><span class="input-del"></span>
+			</div>
+        </li>
+      </ul>
+      <div class="error-tips"></div>
+      <div class="form-btn "><a class="btn" id="btn" href="javascript:void(0);">提交</a></div>
+    </div>
+  </form>
+</div>
+<footer id="footer" class="bottom"></footer>
+<input type="hidden" name="referurl">
+<script>window.FastClick = true;</script>
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/wtscroll-load.js"></script>
+<script type="text/javascript" src="../js/simple-plugin.js"></script>
+<script>
+$(function(){
+    var b_type = 'alipay';
+    $('input[type="radio"]').on('change',function(){
+      b_type = $(this).val();
+      if(b_type == 'bank'){
+        $('#bank_name').show();
+      }else{
+        $('#bank_name').hide();
+      }
+    });
+
+	var key = $api.getStorage('key');
+	$.getJSON(MapiUrl + '/index.php?w=member_fxjoin&t=index', {'key':key}, function(result){
+
+		$("#member_name").html(result.datas.member_name);
+		$("#member_mobile").html(result.datas.member_mobile);
+        $("#bill_user_name").val(result.datas.bill_user_name);
+        $("#bill_type_number").val(result.datas.bill_type_number);
+		$("#bill_bank_name").val(result.datas.bill_bank_name);
+	});
+
+	$('#btn').click(function(){
+		var key = $api.getStorage('key');
+		if(key==''){
+			location.href = '../html/member/login.html';
+		}
+		var bill_user_name = $('#bill_user_name').val();
+		var bill_type_number = $('#bill_type_number').val();
+		var bill_bank_name = $('#bill_bank_name').val();
+		var bill_type_code = $("input[name='bill_type_code']:checked").val();;
+		if(bill_user_name =='')
+		{
+			alert('请输入收款人！');
+			return false;
+		}
+		if(bill_type_number =='')
+		{
+			alert('请输入收款账号！');
+			return false;
+		}
+
+		if(bill_type_code =='bank' && bill_bank_name =='')
+		{
+			alert('请输入开户行！');
+			return false;
+		}
+		var client = 'wap';
+
+		$.ajax({
+			type:'post',
+			url:MapiUrl+"/index.php?w=member_fxjoin&t=step2",
+			data:{bill_user_name:bill_user_name,bill_type_number:bill_type_number,bill_bank_name:bill_bank_name,bill_type_code:bill_type_code,key:key,client:client},
+			dataType:'json',
+				success: function(result) {
+					if (result) {
+					  $.sDialog({
+                           autoTime:'10000',
+                            skin:"red",
+                            content:"提交成功，请等待审核",
+                            okBtn:false,
+                            cancelBtn:false
+					   });
+                        WThome();
+					} else {
+						WTCloseWin();
+					}
+				}
+		 });
+
+	});
+});
+</script>
+</body>
+</html>

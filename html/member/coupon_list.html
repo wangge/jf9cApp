@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>我的优惠券</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<script src="html5plus://ready"></script>
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"><a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+        <div class="header-title">
+      <h1>我的优惠券</h1>
+    </div>
+</header>
+<div class="wtm-main-box">
+  <div class="wtm-voucher-list">
+    <ul class="wtm-tickets" id="rplist">
+    </ul>
+  </div>
+</div>
+<div class="fix-block-r"> <a href="javascript:void(0);" class="gotop-btn gotop hide" id="goTopBtn"><i></i></a> </div>
+
+<script type="text/html" id="list_model">
+    <% if(coupon_list.length >0){%>
+        <% for (var k in coupon_list) { var v = coupon_list[k]; %>
+        <li class="ticket-item normal">
+        <li class="ticket-item <% if (v.coupon_state_key == 'unused') { %>normal<% }else{ %>invalid<%}%>">
+            <a onclick="WtOpenUrl(this)" url="../goods_list.html">
+            <div class="border-left"></div>
+            <div class="block-center">
+                <div class="store-info">
+                    <div class="store-avatar"><img src="<%=v.coupon_customimg_url;%>" /></div>
+                    <dl>
+                        <dt class="store-name"><%=v.coupon_code;%></dt>
+                        <dd>有效期至：<%=v.coupon_end_date_text;%></dd>
+                    </dl>
+                </div>
+                <div class="ticket-info">
+                    <div class="bg-ico rp"></div>
+                    <% if (v.coupon_state_key== 'used') { %>
+                    <div class="watermark ysy"></div>
+                    <% } %>
+                    <% if (v.coupon_state_key== 'expire') { %>
+                    <div class="watermark ysx"></div>
+                    <% } %>
+                    <dl>
+                        <dt>￥<%=v.coupon_price;%></dt>
+                        <dd><% if (v.coupon_limit) { %>满<%= v.coupon_limit %>使用<% } %></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="border-right"></div>
+        </a>
+        </li>
+        <%}%>
+        <li class="loading"><div class="spinner"><i></i></div>数据读取中</li>
+    <%
+    } else {
+    %>
+    <div class="wtm-norecord coupon">
+		<div class="norecord-ico"><i></i></div>
+		<dl>
+			<dt>您还没有相关的优惠券</dt>
+			<dd>平台优惠券可抵扣现金结算</dd>
+			<a onclick="WtOpenUrl(this)" url="../coupon_list.html" class="btn">免费领取优惠券</a>
+		</dl>
+	</div>
+    <% } %>
+</script> 
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script> 
+<script type="text/javascript" src="../../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../../js/template.js"></script> 
+<script type="text/javascript" src="../../js/common.js"></script> 
+<script type="text/javascript" src="../../js/wtscroll-load.js"></script> 
+<script>
+apiready=function(){
+    //监听返回事件
+    api.addEventListener({
+        name: 'LoginTo'
+    }, function(ret, err) {
+        location.reload();
+    });
+}
+    function showSpacing(){
+        $('.spacing-div').remove();
+        $('.invalid').first().before('<div class="spacing-div"><span>已失效优惠券</span></div>');
+    }
+    $(function(){
+        var key = $api.getStorage('key');
+        if (!key) {
+            window.location.href = 'login.html';
+            return false;
+        }
+
+        //渲染list
+        var load_class = new wtScrollLoad();
+        load_class.loadInit({'url':MapiUrl + '/index.php?w=member_coupon&t=coupon_list','getparam':{'key':key},'tmplid':'list_model','containerobj':$("#rplist"),'iIntervalId':true,'callback':showSpacing});
+    });
+</script>
+</body>
+</html>

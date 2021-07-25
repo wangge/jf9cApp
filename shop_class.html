@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>所有店铺</title>
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/goods_list.css">
+</head>
+<body>
+<header id="header" class="fixed fixed-Width">
+  <div class="header-box">
+		<div class="header-l">
+			<a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a>
+		</div>
+		<div class="header-title">
+			<h1>店铺分类</h1>
+		</div>
+	</div>
+</header>
+<div class="wtm-main-box fixed-Width">
+      <ul class="favorites-store-list" id="categroy-right"></ul>
+</div>
+<script type="text/html" id="category-one">
+	<ul class="categroy-list">
+		<% for(var i = 0;i<class_list.length;i++){
+		var locUrl = "";
+		if(class_list[i]['sc_id'].toString().length >0) {
+			locUrl = "shop.html?sc_id="+class_list[i]['sc_id'].toString();
+		}else {
+			locUrl = "index.html";
+		}
+		%>
+		 <li>
+            <a onclick="WtOpenUrl(this)" url="<%=locUrl%>">
+                <dl class="store-info" style="margin-left:10px;">
+                    <dt class="store-name"><%=class_list[i]['sc_name'].toString() %></dt>
+                </dl>
+            </a>
+        </li>
+
+		<% } %>
+	</ul>
+</script>
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/shop_class.js"></script>
+</body>
+</html>

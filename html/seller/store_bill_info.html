@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>实物结算</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/seller.css">
+<link rel="stylesheet" type="text/css" href="../../css/base.css">
+<link rel="stylesheet" type="text/css" href="../../css/seller_stat.css">
+<style>
+.bill-list {}
+/* 内容部分通用表格样式 */
+.wtsc-default-table {font-style: normal; font-weight: normal; font-size: 0.55rem;border-spacing: 0;line-height:20px; width: 100%; border-collapse: collapse; clear: both;}
+.wtsc-default-table thead th { line-height: 20px; color: #999; background-color: #FFF; text-align:center; height: 20px; padding: 8px 0; border-bottom: solid 1px #DDD; }
+.wtsc-default-table thead td,
+.wtsc-default-table tfoot th { background-color: #FFF; height: 22px; padding: 5px 0; border-bottom: solid 1px #E6E6E6;}
+.wtsc-default-table tfoot th { border-top: solid 1px #E6E6E6;}
+.wtsc-default-table thead td label, .wtsc-default-table tfoot th label { color: #555; display: inline; float: left; margin-right: 10px; cursor: pointer; }
+.wtsc-default-table tbody th { background-color: #FAFAFA; border: solid #E6E6E6; border-width: 1px 0; padding: 4px 0;}
+.wtsc-default-table tbody th span { display: inline-block; vertical-align: middle; margin-right: 30px;}
+.wtsc-default-table tbody th span.goods-name { text-overflow: ellipsis; white-space: nowrap; width: 240px; height: 20px; overflow: hidden;}
+.wtsc-default-table tbody td { color: #999; background-color: #FFF; text-align: center; padding: 10px 0;}
+.wtsc-default-table tbody td strong { color: #666;}
+.wtsc-default-table a { color: #666}
+</style>
+</head>
+<body>
+<header id="header" class="fixed">
+   <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-tab"><a href="javascript:;" class="cur">实物结算</a><a href="store_bill_vr.html">电子券结算</a></div>
+  </div>
+  </div>
+</header>
+<div class="wtm-main-box">
+	<div class="alert" id="order-info-container">
+	</div>
+    <div class="wtm-inp-con">
+  	<div class="form-btn" style="display:none"><a class="btn" href="javascript:;">本期结算无误，我要确认</a></div>
+	  <div id="show_ok" style="display:none;text-align:center;font-size:0.8rem">已确认结算</div>
+    </div>
+</div>
+<div class="fix-block-r">
+	<a href="javascript:void(0);" class="gotop-btn gotop hide" id="goTopBtn"><i></i></a>
+</div>
+<script type="text/html" id="order-info-tmpl">
+    <h3>本期结算</h3>
+      <ul class="mt5">
+        <li>结算单号：<%=bill_info.ob_id;%></li>
+        <li>结算时间：<%=bill_info.ob_start_date_txt;%> &nbsp;至&nbsp;<%=bill_info.ob_end_date_txt;%></li>
+        <li>出账时间：<%=bill_info.ob_create_date_txt;%></li>
+        <li>本期应收：<%=bill_info.ob_result_totals;%> = <%=bill_info.ob_order_totals;%> (订单金额)
+		- <%=bill_info.ob_commis_totals;%> (佣金金额) - <%=bill_info.ob_order_return_totals;%> (退单金额)
+		+ <%=bill_info.ob_commis_return_totals;%> (退还佣金) -<%=bill_info.ob_store_cost_totals;%> (促销费用)</li>
+        <li>结算状态：<%=bill_info.ob_state_txt;%></li>
+    </ul>
+</script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/common-seller.js"></script>
+<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+<script type="text/javascript" src="../../js/html/seller/store_bill_info.js"></script>
+</body>
+</html>

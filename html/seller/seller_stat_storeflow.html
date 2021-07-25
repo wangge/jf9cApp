@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>店铺流量</title>
+<link rel="stylesheet" type="text/css" href="../../css/base.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/seller_stat.css">
+</head>
+<body>
+<header id="header" class="fixed">
+ <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-title">
+      <h1>店铺流量</h1>
+    </div>
+  </div>
+</header>
+<div class="wtm-main-box">
+  <div id="fixed_nav" class="wtm-single-nav">
+    <ul id="filtrate_ul" class="w25h">
+       <li ><a href="seller_stat_index.html" data-state="onlinegoods" id="onlinegoods">店铺概况</a></li>
+      <!--<li><a href="seller_stat_goodslist.html" data-state="goods_list" id="goodslist">店铺统计</a></li>-->
+      <li class="selected"><a href="javascript:void(0);" data-state="store_flow" id="storeflow">店铺流量</a></li>
+      <li><a href="seller_stat_goodsflow.html" data-state="goods_flow" id="goodsflow">商品流量</a></li>
+      <li><a href="seller_stat_hotgoods.html" data-state="hot_goods" id="hotgoods">热销排行</a></li>
+    </ul>
+  </div>
+	<div id="stat_search"></div>
+<table class="search-form">
+    <tr>
+    	<td class="tr">
+    		<div class="fr" style="float: left;padding-left: 5px;">
+    		  <div class="fl" style="margin-right:3px;">
+        		<select name="search_type" id="search_type" class="querySelect" style="height: 25px;">
+        			<option value="week" >按照周统计</option>
+        			<option value="month" >按照月统计</option>
+        		</select>
+        	 </div>
+                <div id="searchtype_week" style="display:none;float: left;height: 30px;line-height: 20px;" class="fl">
+                  	<select name="searchweek_year" id="searchweek_year" class="querySelect" style="height: 25px;">
+                    </select>
+                    <select name="searchweek_month" id="searchweek_month" class="querySelect" style="height: 25px;">
+                    </select>
+                    <select name="searchweek_week" id="searchweek_week" class="querySelect" style="height: 25px;">
+                    </select>
+              </div>
+              <div id="searchtype_month" style="display:none;float: left;height: 30px;line-height: 23px;" class="fl">
+                  	<select name="searchmonth_year" id="searchmonth_year" class="querySelect" style="height: 25px;">
+                    </select>
+                    <select name="searchmonth_month" id="searchmonth_month" class="querySelect" style="height: 25px;">
+                    </select>
+              </div>
+			  <div class="fr" style="float: right;height: 25px;line-height: 25px;">
+    			<label class="submit-border">
+				 <a class="btn submit search-btn" style="height: 25px;line-height: 25px;"  href="javascript:void(0)">搜索</a>
+				</label>
+    		</div>
+    		</div>
+    	</td>
+    </tr>
+  </table>
+  <div style="clear:both;"></div>
+</div>
+<div id="container"></div>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/common-seller.js"></script>
+<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+<script type="text/javascript" src="../../js/html/seller/seller_stat_storeflow.js"></script>
+<script type="text/javascript" src="../../js/highcharts.js"></script>
+<script type="text/javascript">
+//展示搜索时间框
+function show_searchtime(){
+	s_type = $("#search_type").val();
+	$("[id^='searchtype_']").hide();
+	$("#searchtype_"+s_type).show();
+}
+$(function(){
+	//统计数据类型
+	var s_type = $("#search_type").val();
+	show_searchtime();
+	$("#search_type").change(function(){
+		show_searchtime();
+	});
+	//更新周数组
+	$("[name='searchweek_month']").change(function(){
+		var year = $("[name='searchweek_year']").val();
+		var month = $("[name='searchweek_month']").val();
+		$("[name='searchweek_week']").html('');
+		$.getJSON(ShopUrl + '/index.php?w=index&t=getweekofmonth',{y:year,m:month},function(data){
+	        if(data != null){
+	        	for(var i = 0; i < data.length; i++) {
+	        		$("[name='searchweek_week']").append('<option value="'+data[i].key+'">'+data[i].val+'</option>');
+			      }
+	        }
+	    });
+	});
+});
+</script>
+</body>
+</html>

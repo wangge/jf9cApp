@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>站内信</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/chat.css">
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"><a href="javascript:history.go(-1)"><i class="back"></i></a></div>
+      <div class="header-title">
+      <h1>站内信</h1>
+    </div>
+    <div class="header-r"> <a id="header-nav" href="javascript:void(0);"><i class="more"></i><sup></sup></a> </div>
+  </div>
+
+</header>
+<div class="wtm-main-box">
+  <ul class="wtm-message-list">
+      <li  style="height: 100%;min-height: 3.2rem;margin: 0 0.5rem 0 3.2rem;">
+    <div class="avatar">
+        <img src="../../images/message.png">
+    </div>
+    <dl><dt id="message_body" style="height: 100%">读取内容中...</dt>
+    <dd id="message_time"></dd>
+</dl>
+</li>
+  </ul>
+</div>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/api.js"></script> 
+<script type="text/javascript" src="../../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../../js/template.js"></script> 
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+<script type="text/javascript" src="../../js/wtscroll-load.js"></script> 
+<script>
+    $(function(){
+        var seller_key = $api.getStorage('seller_key');
+        var id = $api.getStorage('id');
+        if (!seller_key) {
+            window.location.href = '../member/login.html';
+            return;
+        }
+        get_message();
+        
+        function get_message(){
+        	$.ajax({
+                type: 'post',
+                url: MapiUrl + '/index.php?w=seller_chat&t=get_message',
+                data: {key:seller_key,id:id},
+                dataType:'json',
+                success: function(result){
+    				var data = result.datas;
+    				$('#message_body').html(data.message_info.message_body);
+    				$('#message_time').html("("+data.message_info.message_time+")");
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

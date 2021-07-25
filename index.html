@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>ShopWT</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <style>
+        header {
+            background-color: #42abfe;
+        }
+        header ul li {
+            height: 2.25rem;
+            line-height: 2.25rem;
+            text-align: center;
+            display: none;
+            color: #fff;
+            position: relative;
+            font-size: 22px;
+        }
+
+        header ul li.active {
+            display: block;
+        }
+
+        #footer {
+            background-color: #fff;
+        }
+
+        #footer ul li {
+            padding-top: 32px;
+            padding-bottom: 3px;
+            background: url() no-repeat center 2px;
+            background-size: auto 26px;
+            text-align: center;
+            margin-top: 3px;
+            font-size: 12px;
+        }
+				#footer ul li sup {
+					position:absolute;
+					top:2px;
+					right:calc(30% - 25px);
+					color:#F00;
+					border-radius: 10px;
+					width: 10px;
+					height: 10px;
+					background-color:#f00;
+					color:#fff;
+					line-height: 10px;
+					font-size:10px;
+					display: none;
+				}
+
+        #footer ul li.active {
+            color: #ef3c79;
+        }
+
+				#footer ul li:nth-child(4) {
+						background-image: url(./images/cart_b.png);
+				}
+
+        #footer ul li:nth-child(1) {
+            background-image: url(./images/home_b.png);
+        }
+
+        #footer ul li:nth-child(2) {
+            background-image: url(./images/browse_list.png);
+        }
+
+        #footer ul li:nth-child(3) {
+            background-image: url(./images/store_ico.png);
+        }
+
+				#footer ul li:nth-child(4) {
+            background-image: url(./images/cart_b.png);
+        }
+
+				#footer ul li:nth-child(5) {
+						background-image: url(./images/member_b.png);
+				}
+
+        #footer ul li:nth-child(1).active {
+            background-image: url(./images/home_b_2.png);
+        }
+
+        #footer ul li:nth-child(2).active {
+            background-image: url(./images/browse_list_2.png);
+        }
+
+        #footer ul li:nth-child(3).active {
+            background-image: url(./images/store_ico_2.png);
+        }
+
+				#footer ul li:nth-child(4).active {
+            background-image: url(./images/cart_b_2.png);
+        }
+
+
+				#footer ul li:nth-child(5).active {
+            background-image: url(./images/member_b_2.png);
+        }
+
+
+        .flex-con {
+            overflow: auto
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <!--<header>
+            <ul>
+                <li class="active">首页</li>
+                <li class="">分类</li>
+                <li class="">搜索</li>
+								<li class="">购物车</li>
+								<li class="">我的</li>
+            </ul>
+        </header>-->
+        <div id="main" class="flex-con">
+
+        </div>
+        <div id="footer" class="border-t">
+            <ul class="flex-wrap">
+                <li id="tab1" tapmode="hover" onclick="randomSwitchBtn(this);" class="flex-con active">首页</li>
+                <li id="tab2" tapmode="hover" onclick="randomSwitchBtn(this);" class="flex-con">分类</li>
+                <li id="tab3" tapmode="hover" onclick="randomSwitchBtn(this);" class="flex-con">店铺</li>
+								<li id="tab4" tapmode="hover" onclick="randomSwitchBtn(this);" class="flex-con"><sup id="cart_count"></sup>购物车</li>
+								<li id="tab5" tapmode="hover" onclick="randomSwitchBtn(this);" class="flex-con">我的</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript">
+var cart_count = 0;
+var key = $api.getStorage('key');
+cart_count = localStorage.getItem('cart_count');
+var cartid = document.getElementById('cart_count');
+if(key && cart_count > 0) {
+  cartid.style.display ="block";
+}else{
+  cartid.style.display ="none";
+}
+    apiready = function() {
+		api.setStatusBarStyle({
+        style: 'dark',
+  		  color: 'rgba(255,255,255,0.9)'
+      });
+      keyListen();
+      api.openFrameGroup ({
+          name: 'group',
+          scrollEnabled:false,
+          index:0,
+          rect: {
+              x: 0,
+              //y: $api.dom('header').offsetHeight,
+              y:0,
+              w: api.winWidth,
+              h: $api.dom('#main').offsetHeight
+          },
+          frames:
+          [{
+              name: 'main',
+              url: './main.html',
+              bounces:false,
+              vScrollBarEnabled:false,
+              hScrollBarEnabled:false
+          },{
+              name: 'categroy',
+              url: './html/categroy.html',
+              bounces:false,
+              vScrollBarEnabled:false,
+              hScrollBarEnabled:false
+          },{
+              name: 'shop',
+              url: './shop.html',
+              bounces:false,
+              vScrollBarEnabled:false,
+              hScrollBarEnabled:false
+          },{
+              name: 'cart_list',
+              url: './html/cart_list.html',
+              bounces:false,
+              vScrollBarEnabled:false,
+              hScrollBarEnabled:false
+          },{
+              name: 'member',
+              url: './html/member/member.html',
+              bounces:false,
+              vScrollBarEnabled:false,
+              hScrollBarEnabled:false
+          }]
+      }, function(ret, err){
+          var $tab = $api.byId('footer');
+          var $tabBar = $api.domAll($tab, 'li');//获取tab下div标签
+          for (var j = 0; j < $tabBar.length; j++) {
+              //移除全部active
+              $api.removeCls($tabBar[j], 'active');
+          }
+          var index = ret.index;
+          if(index==0){
+              var $obj = $api.byId('tab1');
+              $api.addCls($obj, 'active');
+          }else if(index==1){
+              var $obj = $api.byId('tab2');
+              $api.addCls($obj, 'active');
+          }else if(index==2){
+              var $obj = $api.byId('tab3');
+              $api.addCls($obj, 'active');
+          }else if(index==3){
+                var $obj = $api.byId('tab4');
+                $api.addCls($obj, 'active');
+                api.sendEvent({
+                    name: 'LoginTo',
+                    extra: {
+                        index: 2
+                    }
+                });
+          }else if(index==4){
+                var $obj = $api.byId('tab5');
+                $api.addCls($obj, 'active');
+            }
+      });
+
+    }
+
+
+
+          // 随意切换按钮
+          function randomSwitchBtn(tag) {
+              if (tag == $api.dom('#footer li.active')) return;
+              var eFootLis = $api.domAll('#footer li'),
+                  eHeaderLis = $api.domAll('header li'),
+                  index = 0;
+              for (var i = 0, len = eFootLis.length; i < len; i++) {
+                  if (tag == eFootLis[i]) {
+                      index = i;
+                  } else {
+                      $api.removeCls(eFootLis[i], 'active');
+                      $api.removeCls(eHeaderLis[i], 'active');
+                  }
+              }
+              $api.addCls(eFootLis[index], 'active');
+              $api.addCls(eHeaderLis[index], 'active');
+              api.setFrameGroupIndex({
+                  name: 'group',
+                  index: index,
+                  scroll:true
+              });
+              // console.log("index:"+index);
+              // 切换底部导航栏按钮时，将事件发送出去，
+              // frame1发现页面监听到该事件后，再加载frame组，而不是上来就加载。
+              api.sendEvent({
+                  name: 'viewappear',
+                  extra: {
+                      index: index
+                  }
+              });
+          }
+          //双击退出app
+          function keyListen() {
+              api.addEventListener({
+                  name: 'keyback'
+              }, function(ret, err) {
+                  //双击退出
+                  api.toast({
+                      msg: '再按一次退出',
+                      duration: 2000,
+                      location: 'bottom'
+                  });
+                  api.addEventListener({
+                      name: 'keyback'
+                  }, function(ret, err) {
+                      if (ret) {
+                          exitApp();
+                      }
+                  });
+                  setTimeout(function() {
+                      keyListen();
+                  }, 3000);
+              });
+          }
+          function exitApp() {
+             api.toLauncher();//回到系统桌面app进入后台不会关闭
+          }
+</script>

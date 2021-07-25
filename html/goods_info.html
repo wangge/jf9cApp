@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>商品详情</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<link rel="stylesheet" type="text/css" href="../css/base.css">
+<link rel="stylesheet" type="text/css" href="../css/goods.css">
+</head>
+<body>
+<header id="header" class="posf">
+  <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <ul class="header-nav">
+      <li><a href="javascript:void(0);" id="goodsDetail">商品</a></li>
+      <li class="cur"><a href="javascript:void(0);" id="goodsBody">详情</a></li>
+      <li><a href="javascript:void(0);" id="goodsEvaluation">评价</a></li>
+    </ul>
+  </div>
+</header>
+<div class="wtm-main-box" id="fixed-tab-pannel">
+  <div class="fixed-tab-pannel"></div>
+</div>
+<div id="goods_detail_html" style="position: relative; z-index: 1;"></div>
+<div id="goods_detail_spec_html" class="wtm-bottom-mask"></div>
+<script type="text/html" id="goods_detail">
+	<% if (goods_content.pingou_sale == '1') { %>
+	<div class="goods-detail-foot">
+	<div class="otreh-handle">
+			<a href="javascript:void(0);" class="kefu"><i></i><p>客服</p></a>
+			<a href="store.html?store_id=<%= store_info.store_id %>" class="store"><i></i><p>进店</p></a>
+			<a href="cart_list.html" class="cart"><i></i><p>购物车</p><span id="cart_count"></span></a>
+		</div>
+	<div class="<%if(!goods_hair_info.if_store || goods_content.goods_storage == 0){%>no-buy<%}%>">
+    <div class="pingou-button">
+		<a class="<%if(goods_hair_info.if_store){%>animation-up<%}%> invite-btn" href="javascript:void(0);">
+		<span>¥<em><%=goods_content.pingou_goods_price%></em></span><p>单独购买</p></a>
+		<a class="<%if(goods_hair_info.if_store){%>animation-up<%}%> order-btn" href="javascript:void(0);">
+		<span>¥<em><%=goods_content.pingou_price%></em></span> <p><%=goods_content.pingou_min_num%>人团</p></a>
+    </div>
+	</div>
+	</div>
+	<% } else { %>
+	<div class="goods-detail-foot">
+		<div class="otreh-handle">
+			<a href="javascript:void(0);" class="kefu"><i></i><p>客服</p></a>
+			<a href="store.html?store_id=<%= store_info.store_id %>" class="store"><i></i><p>进店</p></a>
+			<a href="cart_list.html" class="cart"><i></i><p>购物车</p><span id="cart_count"></span></a>
+		</div>
+		
+	<%if(IsHaveBuy=='0'){ %>
+		<div class="buy-handle <%if(!goods_hair_info.if_store || goods_content.goods_storage == 0){%>no-buy<%}%>">
+			<% if (goods_content.cart == '1') { %>
+			<a href="javascript:void(0);" class="<%if(goods_hair_info.if_store){%>animation-up<%}%> add-cart">加入购物车</a>
+			<% } %>
+			<a href="javascript:void(0);" class="<%if(goods_hair_info.if_store){%>animation-up<%}%> buy-now">立即购买</a>
+		</div>
+	<% } else {%>
+		 <div class="buy-handle no-buy">
+			<a href="javascript:void(0);" class="buy-now">您已参加本商品抢购活动</a>
+		</div>
+	<% } %>
+	 
+</div>
+	<% } %>
+</script> 
+<script type="text/html" id="goods_detail_sepc">
+<div class="wtm-bottom-mask-bg"></div>
+<div class="wtm-bottom-mask-block">
+	<div class="wtm-bottom-mask-top goods-options-info">
+		<div class="goods-pic">
+		<img src="<%=goods_image[0]%>"/>
+	</div>
+	<dl>
+		<dt><%=goods_content.goods_name%></dt>
+		<% if (goods_content.pingou_sale == '1') { %>
+		<dd class="goods-price">
+					￥<em><%=goods_content.pingou_goods_price%></em>
+			<span class="goods-storage">库存：<%=goods_content.goods_storage%>件</span>
+		</dd>
+		<% } else { %>
+		<dd class="goods-price">
+		<% if (goods_content.sale_type) {
+			var promo;
+			switch (goods_content.sale_type) {
+			case 'robbuy': promo = '抢购'; break;
+			case 'xianshi': promo = '限时折扣'; break;
+			case 'sole': promo = '手机专享'; break;}
+		%>
+			￥<em><%=goods_content.sale_price%></em>
+			<span class="activity">
+			<% if (promo) { %>
+				<%= promo %>
+				<% } %>
+			</span>
+			<% } else { %>
+	￥<em>
+						<% new_goods_price=goods_content.goods_price; if(goods_content.step_prices.length>0){
+			 new_goods_price=goods_content.step_prices[0].step_price;
+		}%>
+					<%=new_goods_price%></em>
+
+				<% } %>
+			<span class="goods-storage">库存：<%=goods_content.goods_storage%>件</span>
+		</dd>
+		<% } %>
+	</dl>
+	<a href="javascript:void(0);" class="wtm-bottom-mask-close"><i></i></a>
+</div>
+<div class="wtm-bottom-mask-rolling" id="product_roll">
+	<div class="goods-options-stock">
+		<% if(goods_map_spec.length>0){%>
+		<% for(var i =0;i<goods_map_spec.length;i++){%>
+		<dl class="spec">
+			<dt spec_id="<%=goods_map_spec[i].id%>">
+				<%=goods_map_spec[i].goods_spec_name%>：
+			</dt>
+			<dd>
+				<%for(var j = 0;j<goods_map_spec[i].goods_spec_value.length;j++){%>
+					<a href="javascript:void(0);" <%if (goods_content.goods_spec[goods_map_spec[i].goods_spec_value[j].specs_value_id]){%> class="current" <%}%>specs_value_id = "<%=goods_map_spec[i].goods_spec_value[j].specs_value_id%>">
+						<%=goods_map_spec[i].goods_spec_value[j].specs_value_name%>
+					</a>
+				<%}%>
+			</dd>
+		</dl>
+		<%}%>
+		<%}%>
+		<% if (goods_content.is_virtual == '1') { %>
+		<dl class="spec-sale">
+			<dt>提货方式：</dt>
+			<dd><a href="javascript:void(0);" class="current">电子兑换券</a></dd>
+		</dl>
+		<dl class="spec-sale">
+			<dt>有效期：</dt>
+			<dd><a href="javascript:void(0);" class="current">即日起 到 <%= goods_content.virtual_indate_str %></a>
+				<% if (goods_content.buyLimitation && goods_content.buyLimitation > 0) { %>
+				（每人次限购 <%= goods_content.buyLimitation %> 件）
+				<% } %>
+				</dd>
+		</dl>
+	<% } else { %>
+		<% if (goods_content.is_presell == '1') { %>
+		<dl class="spec-sale">
+			<dt>预售：</dt>
+			<dd><a href="javascript:void(0);" class="current"><%= goods_content.presell_deliverdate_str %> 日发货</a></dd>
+		</dl>
+		<% } %>
+		<% if (goods_content.is_fcode == '1') { %>
+		<dl class="spec-sale">
+			<dt>购买类型：</dt>
+			<dd><a href="javascript:void(0);" class="current">F码优先购买</a>（每个F码优先购买一件商品）</dd>
+		</dl>
+		<% } %>
+		<% } %>
+	</div>
+</div>
+<div class="goods-option-value">购买数量
+	<div class="value-box">
+		<span class="minus">
+			<a href="javascript:void(0);">&nbsp;</a>
+		</span>
+		<span>
+		<% lowestnum=1; if(goods_content.step_prices.length>0){
+			lowestnum=goods_content.step_prices[0].step_l_num;
+		}%>
+			<input type="text" pattern="[0-9]*" class="buy-num" id="buynum" value="<%=lowestnum%>"/>
+			<input type="hidden" class="lowestnum" id="lowestnum" value="<%=lowestnum%>"/>
+		</span>
+		<span class="add">
+			<a href="javascript:void(0);">&nbsp;</a>
+		</span>
+	</div>
+</div>
+<% if (goods_content.pingou_sale == '1') { %>
+	<div class="goods-option-foot">
+    <div class="pingou-button pingou_sale <%if(!goods_hair_info.if_store || goods_content.goods_storage == 0){%>no-buy<%}%>">
+		<a class="<%if(goods_hair_info.if_store){%>animation-up<%}%> invite-btn" href="javascript:void(0);">
+		<span>¥<em><%=goods_content.pingou_goods_price%></em></span><p>单独购买</p></a>
+		<a class="<%if(goods_hair_info.if_store){%>animation-up<%}%> order-btn" href="javascript:void(0);">
+		<span>¥<em><%=goods_content.pingou_price%></em></span> <p><%=goods_content.pingou_min_num%>人团</p></a>
+    </div>
+	</div>
+<% } else { %>
+<div class="goods-option-foot">
+	<div class="otreh-handle">
+		<a href="javascript:void(0);" class="kefu">
+			<i></i>
+			<p>客服</p>
+		</a> 
+			
+		<a onclick="WtOpenUrl(this)" url="cart_list.html" class="cart">
+			<i></i>
+			<p>购物车</p>
+			<span id="cart_count1"></span>
+		</a>
+		<a onclick="WtOpenUrl(this)" url="store.html?store_id=<%= store_info.store_id %>" class="store"><i></i><p>店铺</p></a>
+	</div>
+	<%if(IsHaveBuy=='0'){ %>
+	<div class="buy-handle <%if(!goods_hair_info.if_store || goods_content.goods_storage == 0){%>no-buy<%}%>">
+		<% if (goods_content.cart == '1') { %>
+		<a href="javascript:void(0);" class="add-cart" id="add-cart">加入购物车</a>
+		<% } %>
+		<a href="javascript:void(0);" class="buy-now" id="buy-now">立即购买</a>
+	</div>
+	<% } else {%>
+		 <div class="buy-handle no-buy">
+			<a href="javascript:void(0);" class="buy-now">您已参加本商品抢购活动</a>
+		</div>
+	<% } %>
+</div>
+	<% } %>
+</script>
+
+<script type="text/javascript" src="../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="../js/config.js"></script> 
+<script type="text/javascript" src="../js/template.js"></script> 
+<script type="text/javascript" src="../js/common.js"></script> 
+<script type="text/javascript" src="../js/iscroll.js"></script> 
+<script type="text/javascript" src="../js/simple-plugin.js"></script> 
+<script type="text/javascript" src="../js/requestAnimationFrame.js"></script>
+<script type="text/javascript" src="../js/zepto.fly.min.js"></script>
+<script type="text/javascript" src="../js/html/goods_info.js"></script> 
+</body>
+</html>

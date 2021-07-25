@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>设置</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<script src="html5plus://ready"></script>
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <div class="header-title">
+      <h1>设置</h1>
+    </div>
+  </div>
+</header>
+<div class="wtm-main-box">
+  <ul class="wtm-default-list">
+	<li>
+		<a onclick="WtOpenUrl(this)" url="member_update_avatar.html">
+		  <h4>会员头像</h4>
+		  <h6>建议您设置会员头像</h6>
+		  <span class="member-avator"><img id="avator_img" src="#"></span>
+		</a>
+	</li>
+    <li><a onclick="WtOpenUrl(this)" url="member_password_step1.html">
+      <h4>登录密码</h4>
+      <h6>定期更改密码，保护账户安全</h6>
+      <span class="arrow-r"></span></a></li>
+    <li><a onclick="WtOpenUrl(this)" url="member_mobile_bind.html" id="mobile_link">
+      <h4>手机验证</h4>
+      <h6>订单短信、登录、找回密码等使用到</h6>
+      <span class="tip" id="mobile_value"></span> <span class="arrow-r"></span></a></li>
+    <li><a onclick="WtOpenUrl(this)" url="member_auth.html">
+      <h4>实名认证</h4>
+      <h6>认证后，指定店铺或商品享有价格优惠</h6>
+      <span class="tip" id="member_auth"></span> <span class="arrow-r"></span> </a></li>
+    <li><a onclick="WtOpenUrl(this)" url="member_paypwd_step1.html">
+      <h4>支付密码</h4>
+      <h6>在订单支付时，使用余额支付时使用到</h6>
+      <span class="tip" id="paypwd_tips"></span> <span class="arrow-r"></span> </a></li>
+<!--<li>
+		<a onclick="WtOpenUrl(this)" url="member_bind.html">
+		  <h4>微信绑定</h4>
+		  <h6>绑定后，使用微信登录更快捷方便</h6>
+		  <span class="tip"  id="member_wx"></span> <span class="arrow-r"></span> </a></li>
+		</a>
+	</li>-->
+	<li><a onclick="WtOpenUrl(this)" url="member_feedback.html">
+      <h4>反馈建议</h4>
+      <h6>向我们反映问题，我们第一时间给你解答</h6>
+      <span class="arrow-r"></span></a></li>
+	<li><a onclick="WtOpenUrl(this)" url="../article_list.html?ac_id=1">
+      <h4>常见问题</h4>
+      <h6>平台公告，购物指南，新手上路等指导</h6>
+      <span class="arrow-r"></span></a></li>
+	<li><a onclick="WtOpenUrl(this)" url="../../news/index.html">
+      <h4>资讯中心</h4>
+      <h6>关注平台资讯，用户发表的信息</h6>
+      <span class="arrow-r"></span></a></li>
+      <li><a href="../seller/seller.html">
+          <h4>商家中心</h4>
+          <h6>切换到商家中心，方便商家管理</h6>
+          <span class="arrow-r"></span></a></li>
+	<li><a onclick="clearCache()" href="javascript:void(0);">
+      <h4>清除缓存</h4>
+      <span class="arrow-r"></span></a></li>
+      <li><a href="javascript:void(0);">
+          <h4>当前版本</h4>
+          <span class="tip" id="mobile_version"></span> <span class="arrow-r"></span></a></li>
+      <li><a onclick="WtOpenUrl(this)" url="about.html">
+              <h4>关于我们</h4>
+              <span class="arrow-r"></span></a></li>
+  </ul>
+  <ul class="wtm-default-list mt5">
+    <li><a id="logoutbtn" href="javascript:void(0);">
+      <h5>退出登录</h5>
+      </a></li>
+  </ul>
+</div>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/html/member_account.js"></script>
+<script type="text/javascript">
+apiready=function(){
+  var version = api.appVersion;
+  document.getElementById('mobile_version').innerHTML = version;
+}
+</script>
+</body>
+</html>

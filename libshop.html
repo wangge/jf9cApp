@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>附近商家</title>
+
+
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link href="./restore/base.css" rel="stylesheet" type="text/css">
+<link href="./restore/global.css" rel="stylesheet" type="text/css">
+<link href="./restore/weui.css" rel="stylesheet" type="text/css">
+<link href="./restore/shop_street.css" rel="stylesheet" type="text/css">
+<style>
+-webkit-overflow-scrolling : touch;
+#J_DroadLoad {
+	overflow: scroll;
+	max-height: 104px;
+	width: 100%;
+}
+.weui-panel__bd {
+    border-bottom: 1px solid #eee;
+    padding: 0px 9px 0px 9px;
+    height: 50px;
+}
+
+.weui-media-box {
+    padding: 15px;
+    position: relative;
+}
+.market-info .weui-media-box_appmsg .weui-media-box__hd {
+    width: 80px;
+}
+
+.weui-media-box_appmsg .weui-media-box__hd {
+    margin-right: .8em;
+    text-align: center;
+}
+.market-info .weui-media-box_appmsg .weui-media-box__hd {
+    width: 80px;
+}
+.categories{
+  display:none;
+  background: #eee;
+}
+  .categories li{
+      line-height: 40px;
+    }
+    .categories i{
+      font-style: normal;
+    }
+    .categories h5{
+      font-weight: normal;
+      display: inline-block;
+      margin-left:30px;
+    }
+    .categories span{
+      border: 1px solid #ddd;
+      display: inline-block;
+      line-height: 25px;
+      padding: 0 10px;
+      background: #fff;
+      margin-right: 5px;
+    }
+.selected{
+  display:block;
+}
+.selected_blue{
+  background:#4C8CDF; 
+}
+#J_SearchQ{
+    display: inline-block;
+    width: 115%;
+    height: 1.6rem;
+    padding: 0.05rem;
+    border: none;
+    border-radius: 0.2rem;
+    font-size: 0.6rem;
+    background-color: #EEE;
+    line-height: 1rem;
+}
+
+.shop-nav {
+    width: 105%;
+    height: 39px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    background: #fff;
+    z-index: 115;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: -10px;
+}
+.shop-nav .nav-item {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    width: 33%;
+    float: left;
+    height: 17px;
+    line-height: 17px;
+    padding: 0 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    color: #222;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+a:hover {
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.shop-nav .nav-item:after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #9b9b9b;
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transition: .3s;
+}
+
+body.visibly,html.visibly{position: fixed;left: 0;top: 0; right:0;margin:auto;width: 100%; z-index:1;height:100%;overflow:hidden;}
+.hide {
+    display: none;
+}
+</style>
+<script type="text/javascript">
+//<![CDATA[
+var GLOBAL = {};
+GLOBAL.namespace = function (str) {
+	var arr = str.split("."), o = GLOBAL;
+	for (i = (arr[0] == "GLOBAL") ? 1 : 0; i < arr.length; i++) {
+		o[arr[i]] = o[arr[i]] || {};
+		o = o[arr[i]];
+	}
+};
+GLOBAL.Config = {};
+GLOBAL.Config.base = '';
+GLOBAL.Config.base_http = 'http://m.taohefei.com';
+GLOBAL.Config.base_https = 'https://m.taohefei.com';
+GLOBAL.Config.lancode = 'zh-CN';
+GLOBAL.Config.lanDfPath = '';
+GLOBAL.Config.imgPath = '/skin/m/img';
+
+GLOBAL.islogin = false;
+//]]>
+</script>
+
+<script type="text/javascript" src="./restore/zepto.min.js"></script>
+<script type="text/javascript" src="./restore/global-min.js"></script>
+<script src="./restore/lib-min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./restore/taolf.js"></script>
+<script type="text/javascript" src="./restore/swipeSlide.min.js"></script>
+
+
+<link href="./restore/baidumap.css" type="text/css" rel="stylesheet" media="all">
+<link href="./restore/dropload.css" type="text/css" rel="stylesheet" media="all">
+<script src="./restore/dropload.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./restore/wechat.jssdk.js"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=a5b4yN0lnMW3ou4H7Y60SQ5A2cnFH28u"></script>
+
+
+
+
+</head>
+
+<body >
+<input type="hidden" value="" id="sales_sort"/>
+<input type="hidden" value="" id="credit_sort"/>
+<input type="hidden" value="" id="juli_sort"/>
+<div class="j_WinHidden">
+	<div class="w mapCompany">
+		<div id="J_BaiduMap" class="baidumap" style="height: 640px; overflow: hidden; position: relative; z-index: 0; background-color: rgb(243, 241, 236); color: rgb(0, 0, 0); text-align: left;">
+    
+    </div>
+		
+        <div id="J_MapCompanySearch" class="mapCompany-search clearfix">
+				<div class="mapCompany-returnIcon"><a onclick="WtfootUrl(this)" url="index.html"><em></em></a></div>
+				<div class="mapCompany-search-bj j_SearchBtn">
+          <input id="J_SearchQ"  autofocus="autofocus" placeholder="请输入关键字" name="q" value="" autocomplete="off" maxlength="17">
+        </div>
+				<div id="search_store" style="margin-bottom: 2px;" class="mapCompany-searchIcon j_SearchBtn"><span></span><em></em></div>
+        <div class="shop-nav" >
+          <a style="width:30%" data-mk_idc="" href="javascript:void(0);" class="nav-item">店铺类目</a>
+          <a style="width:30%" data-distance="" href="javascript:void(0);" class="nav-item">附近商家</a>
+          <a style="width:40%" data-sales="" href="javascript:void(0);" class="nav-item">智能排序</a>
+        </div>
+			</div>
+      <div class="classify-content shop-submenu" style="display: none">
+	<div class="shop-submenu-left" id="class_left_content">
+  </div>
+	<div class="shop-submenu-right" id="class_right_content">
+	</div>
+</div>
+<div class="distance-box shop-submenu SZY-SHOP-STREET-DISTANCE" style="display: none">
+	<span>
+		<a href="javascript:void(0);" class="current" data-val="0" data-distance="0" data-text="附近商家">全部</a>
+	</span>
+	<span>
+		<a href="javascript:void(0);" data-val="1" data-distance="1" data-text="1千米">1千米</a>
+	</span>
+	<span>
+		<a href="javascript:void(0);" data-val="3" data-distance="3" data-text="3千米">3千米</a>
+	</span>
+	<span>
+		<a href="javascript:void(0);" data-val="5" data-distance="5" data-text="5千米">5千米</a>
+	</span>
+	<span>
+		<a href="javascript:void(0);" data-val="10" data-distance="10" data-text="10千米">10千米</a>
+	</span>
+</div>
+<div class="sort-box shop-submenu SZY-SHOP-STREET-SORT" style="display: none">
+	<!-- 销量降序class名：icon-descending，升序class名为：icon-ascending-->
+	<span>
+		<a href="javascript:void(0);" data-val="sales"  data-text="销量">销量</a>
+	</span>
+	<!--信誉 -->
+	<span>
+		<a href="javascript:void(0);" data-val="credit"  data-text="信誉">信誉</a>
+	</span>
+	<!--距离-->
+	<span>
+		<a href="javascript:void(0);" data-val="juli"  data-text="距离">距离</a>
+	</span>
+</div>
+<div class="mask-div"></div>
+      
+			<div class="mapCompany-leftBox clearfix">
+      <a onclick="WtfootUrl(this)" url="index.html"><em></em><p class="leftBox-text">首页</p></a></div>
+			<div id="J_MapWaySearch" class="mapCompany-waySearch mapCompany-search clearfix">
+				<div id="J_MapSearchBack" class="mapCompany-returnIcon mapCompany-returnIcon01"><em></em></div>
+				<div class="mapCompany-searchContent">
+					<div id="J_MapWayCur" class="starting">
+						<em></em>
+						<a href="javascript:void(0);"><span id="J_MapWayCurText" class="j_MapWayAddress_text text">我的位置</span></a>
+					</div>
+					<div class="destination">
+						<em></em>
+						<span id="J_MapWayCompanyName" class="text"></span>
+					</div>
+				</div>
+			</div>
+			<div id="J_MapWayPic" class="mapCompany-selected clearfix">
+				<div class="mapCompany-selectedHead">
+					<div id="J_MapWayBack" class="mapCompany-returnIcon"><em></em></div>
+					<p>地图选点</p>
+				</div>
+				<div class="mapCompany-selectedTips">
+					提示：点击屏幕，选择正确起点！
+					<em id="J_MapWayTipClose"></em>
+				</div>
+			</div>
+			<div id="J_MapWayAddress" class="mapCompany-selectedAddress clearfix">
+				<p class="j_MapWayAddress_text"></p>
+				<span><a id="J_MapWaySure" href="javascript:void(0);">确认选点</a></span>
+			</div>
+			<!-- <div id="J_MapWayTip" class="mapCompany-wayTips"><em></em>提示：请选择准确的起点</div>
+			<div id="J_MapWapOpen" class="mapCompany-wayOpen"><em></em>驾车</div> -->
+			
+			<div id="J_MapCompanyBoxMarket" class="mapCompany-shoplist" data-q="办公用品" style="display: none;bottom:20.5%;">
+				<div class="mapCompany-shopbox" id="showDiv">
+					<div class="mapCompany-shopinfo">
+						<em></em>
+						店铺类目
+						<span id="showClass" class="info">展开</span>
+					</div>
+					<div id="J_DroadLoad" style="max-height: 334px;">
+           <div class="dropload-down">
+            <div class="dropload-noData">没有更多数据啦！</div>
+           </div>
+           </div>
+				</div>
+			</div>
+      <div id="J_MapCompanyBox" class="mapCompany-shoplist" data-q="办公用品" style="display: block;">
+				<div class="mapCompany-shopbox">
+					<div class="mapCompany-shopinfo">
+						<em></em>
+						店铺信息
+						<span class="info">共找到（<span id="store_count"></span>）家商铺</span>
+						<span class="open_close" style="border-radius: 16px;
+    background: #525050;
+    position: absolute;
+    right: 5px;
+    top: 30px;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;">展</span>
+					</div>
+					<div id="J_DroadLoad" class="store_list_cnt">
+          
+           <div class="dropload-down">
+           <div class="dropload-noData">没有更多数据啦！</div>
+           </div>
+           </div>
+           <div class="page_box">
+            
+          </div>
+				</div>
+			</div>
+			</div>
+</div>
+<footer>
+
+</footer>
+<script type="text/html" id="class_left_div">
+<ul class="SZY-SHOP-STREET-CLS">
+      <% for(var keya in market_class_list){ %>
+        <li data-val="<%=market_class_list[keya].mk_id%>" <% if(keya==1){ %>class="current"<% } %> >
+          <span class="submenu-name"><%=market_class_list[keya].mk_name%></span>
+        </li>
+      
+      <% } %>            
+
+			
+</ul>      
+</script>
+<script type="text/html" id="class_center_div">
+
+    <ul class="SZY-SHOP-STREET-CLS-CHR " id="cls_list_<%=market_class_list[keya].mk_id%>">
+<% for(var keya in market_class_list){ %>
+    <% var class2=market_class_list[keya].class2 %>
+    <% for(var keyb in class2){%>
+        <li data-val="<%=class2[keyb].mk_id%>" data-cls_id="1_1_0" data-text="<%=class2[keyb].mk_name%>" class="">
+          <span class="submenu-name"><%=class2[keyb].mk_name%></span>
+        </li> 
+    <% } %>            
+
+          </ul>     
+<% } %>            
+</script>
+<script type="text/html" id="class_right_div">
+<% for(var keya in market_class_list){ %>
+
+    <ul class="SZY-SHOP-STREET-CLS-CHR <% if(keya==1){ %><% }else{ %> hide<% } %>" id="cls_list_<%=market_class_list[keya].mk_id%>">
+    <% var class2=market_class_list[keya].class2 %>
+    <% for(var keyb in class2){%>
+    
+    
+        <li style="float:left;width:100%;height: 0.8rem;line-height: 0.8rem;margin-top: 0.65rem;font-size: 0.6rem;color: #222;"data-val="<%=class2[keyb].mk_id%>" data-cls_id="1_1_0" data-text="<%=class2[keyb].mk_name%>" class="">
+          <span class="submenu-name"><%=class2[keyb].mk_name%></span>
+        </li>
+        <% var class3=class2[keyb].class3 %>
+          <% for(var keyc in class3){ %>
+          <li style="width:33%;display:block;float:left;" data-mk_ida="<%=market_class_list[keya].mk_id%>" data-mk_idb="<%=class2[keyb].mk_id%>" data-mk_idc="<%=class3[keyc].mk_id%>" data-text="<%=class3[keyc].mk_name%>">
+            <span class="submenu-name"><%=class3[keyc].mk_name%></span>
+          </li>
+        <% } %>    
+          
+    <% } %>            
+
+          </ul>     
+<% } %>            
+</script>
+<script type="text/html" id="map_shop_class">
+      <% for(var keya in market_class_list){ %>
+
+                 <div class="weui-panel__bd" >
+                <div class="weui-media-box weui-media-box_appmsg">
+                  <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title"><%=market_class_list[keya].mk_name%></h4>
+                  </div>
+                </div>
+                <div class="categories">
+                  <ul style="overflow:visible;">
+                  <% var class2=market_class_list[keya].class2 %>
+                  <% for(var keyb in class2){%>
+                    <li style="height:auto;">
+                      <i><%=class2[keyb].mk_name%></i>
+                      <h5>
+                      <% var class3=class2[keyb].class3 %>
+                      <% for(var keyc in class3){%>
+                        <span mk_ida="<%=market_class_list[keya].mk_id%>" mk_idb="<%=class2[keyb].mk_id%>" mk_idc="<%=class3[keyc].mk_id%>"><%=class3[keyc].mk_name%></span>
+                        <% } %>
+                        </h5>
+                    </li>
+                    <% } %>
+                  </ul>
+                </div>
+              </div>
+  <% } %>            
+            
+</script>
+<script type="text/html" id="map_store_list">
+    <ul id="J_DroadLoadBox" class="j_MapCompanyUl">
+      <% for(var keya in store_list){ %>
+      
+                    <li data-recommend="<%=store_list[keya].is_recommend %>" data-credit="<%=store_list[keya].store_credit_average %>" data-sales="<%=store_list[keya].num_sales_jq %>" data-juli_m="" class="j_MapCompanyList j_MapcompanyPoint" data-store_id="<%=store_list[keya].store_id%>"data-bmapx="<%=store_list[keya].store_lng%>" data-bmapy="<%=store_list[keya].store_lat%>">
+                    <div class="mapCompany-info">
+                      <div class="mapCompany-title">
+                        <p class="j_CompanyName"><%=store_list[keya].store_name%></p>
+                      </div>
+                      <div class="mapCompany-address">
+                        <span class="j_CompanyAddress companyAddress">地址：<%=store_list[keya].store_address%></span>
+                      </div>
+                      <div class="mapCompany-sell">
+                        主营：
+                        <span class="companySell"><%=store_list[keya].store_zy%></span>
+                      </div>	
+                      <div class="mapCompany-tel">
+                        电话：
+                        <span class="companyTel"><%=store_list[keya].store_phone%></span>
+                      </div>				
+                    </div>
+                    <div class="j_MapDistance distance"></div>
+                    <div class="mapCompany-rightIcon">
+                      <div class="j_MapCompanyLocation mapCompany-nav"><em></em>路线</div>
+                      <div class="mapCompany-shop"><a onclick="WtOpenUrl(this)" url="html/store.html?store_id=<%=store_list[keya].store_id%>"><em></em>店铺</a></div>
+                      <div class="mapCompany-phone"><a onclick="WtOpenUrl(this)" url="tel:<%=store_list[keya].store_phone%>"><em></em>电话</a></div>
+                    </div>
+                  </li>
+  <% } %>            
+  </ul>
+            
+</script>
+<script> var navigate_id ="1";</script> 
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="restore/shopstreet.js"></script>
+<script type="text/javascript" src="js/libstore_class.js"></script>
+<script type="text/javascript">
+window.onload=function (){
+  smallToBig('juli_m');
+}
+</script>
+</html>

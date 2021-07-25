@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title id="art_name"></title>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/goods_list.css">
+	<link rel="stylesheet" type="text/css" href="../css/member.css">
+</head>
+<body>
+<header id="header" class="fixed">
+	<div class="header-box">
+		<div class="header-l">
+			<a onclick="WTback(this)" href="javascript:;">
+				<i class="back"></i>
+			</a>
+		</div>
+		<div class="header-inp">
+			<i class="icon"></i>
+			<input type="text" autocomplete="on" maxlength="50" placeholder="请输入搜索关键字" name="artkeyword" id="artkeyword" oninput="writeClear($(this));" value="" class="search-input" data-type="artkeyword" /><span class="input-del"></span>
+		</div>
+		<div class="header-r">
+			<a id="serach_article" href="javascript:void(0);" class="search-btn"></a>
+		</div>
+	</div>
+
+</header>
+<div class="wtm-nav-container">
+  <div class="wtm-scroll-nav">
+    <div class="nav-content wb">
+      <ul id="nav-show-class" class="nav">
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page-main">
+<div id="article-content"> </div>
+</div>
+<script type="text/html" id="article-class">
+	<% if(article_class.length >0){%>
+		<% for (var i = 0;i<article_class.length;i++){%>
+			<li <% if(default_id == article_class[i].ac_id){%>class="active"<% }%>>
+				<a href="javascript:void(0);" class="gc_active" date-id="<%=article_class[i].ac_id%>"><%=article_class[i].ac_name%>
+				</a>
+			</li>
+        <%}%>
+    <%}else{%>
+    	<div class="no-record m10">没有相关内容</div>
+    <%}%>
+</script>
+<script type="text/html" id="article-list">
+	<% if(article_list.length >0){%>
+	<ul>
+		<% for (var i = 0;i<article_list.length;i++){%>
+			<li class="article-list-item">
+				<a onclick="WtOpenUrl(this)" url="article_show.html?article_id=<%=article_list[i].article_id%>"><%=article_list[i].article_title%>
+				</a>
+			</li>
+        <%}%>
+	</ul>
+    <%}else{%>
+    	<div class="no-record m10">没有相关内容</div>
+    <%}%>
+</script>
+<script> var navigate_id ="1";</script>
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/iscroll.js"></script>
+<script type="text/javascript" src="../js/html/article_list.js"></script>
+</body>
+</html>

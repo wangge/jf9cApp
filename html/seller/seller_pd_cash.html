@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>店铺设置</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<style type="text/css">
+input[type="radio"]{ -webkit-appearance: radio; }    
+</style>
+</head>
+<body>
+  <header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-title">
+      <h1>余额提现</h1>
+    </div>
+  </div>
+</header>
+<div class="wtm-main-box">
+  <div id="pd_count" class="wtm-asset-info"><div class="container pre">
+		<i class="icon"></i>
+		    <dl>
+				<dt>最多可提现</dt>
+				<dd>￥<em id="allmoney">0.00</em></dd>
+			</dl>
+	</div></div>
+   <form>
+    <div class="wtm-inp-con">
+      <ul class="form-box">
+        <li class="form-item">
+          <h4>提现金额</h4>
+          <div class="input-box">
+            <input type="text" class="inp" name="pdc_amount" id="pdc_amount" autocomplete="off" placeholder="不能大于余额" oninput="writeClear($(this));"/>
+            <span class="input-del"></span> </div>
+        </li>
+        <li class="form-item">
+          <h4>收款方式</h4>
+          <div class="txt-box">
+          <input name="pdc_type_code" value="alipay" checked="checked" type="radio">&nbsp;支付宝
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input name="pdc_type_code" value="bank" type="radio">&nbsp;银行
+        </div>
+        </li>
+		<li class="form-item" id="bank_name" style="display: none;">
+          <h4>银行开户行</h4>
+          	<div class="input-box">
+            	<input type="text" name="pdc_bank_name" id="pdc_bank_name" class="inp no-follow" maxlength="50" placeholder="请输入银行开户行" oninput="writeClear($(this));" onFocus="writeClear($(this));"/><span class="input-del"></span>
+			</div>
+        </li>
+		<li class="form-item">
+          <h4>收款账号</h4>
+          <div class="input-box">
+            <input type="text" class="inp" name="pdc_bank_no"  id="pdc_bank_no" autocomplete="off" placeholder="请输入收款账号" oninput="writeClear($(this));"/>
+          <span class="input-del"></span> </div>
+        </li>
+		<li class="form-item">
+          <h4>收&nbsp;&nbsp;款&nbsp;&nbsp;人</h4>
+          <div class="input-box">
+            <input type="text" class="inp" name="pdc_bank_user"  id="pdc_bank_user" autocomplete="off" placeholder="请输入收款人姓名" oninput="writeClear($(this));"/>
+			<span class="input-del"></span> </div>
+        </li>
+        <li class="form-item">
+          <h4>手机号码</h4>
+          <div class="input-box">
+            <input type="tel" class="inp" name="mobilenum" id="mobilenum" autocomplete="off" placeholder="请输入手机号码" oninput="writeClear($(this));">
+            <span class="input-del"></span> </div>
+        </li>
+      <li class="form-item">
+        <h4>支付密码</h4>
+        <div class="input-box">
+          <input type="text" name="password" id="password" class="inp" autocomplete="off"  placeholder="请输入支付密码" oninput="writeClear($(this));" onFocus="writeClear($(this));" />
+          <span class="input-del code"></span>
+        <span class="code-again"><a href="../member/member_paypwd_step1.html">忘记支付密码?</a></span>
+
+          </div>
+      </li>
+
+      </ul>
+        
+      <div class="error-tips"></div>
+      <div class="form-btn"><a class="btn" id="btn" href="javascript:;">提交</a></div>
+    </div>
+  </form>
+</div>
+
+<input type="hidden" name="referurl">
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script> 
+<script type="text/javascript" src="../../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../../js/template.js"></script> 
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+<script type="text/javascript" src="../../js/wtscroll-load.js"></script> 
+<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../../js/html/seller/seller_pd_cash.js"></script>
+</body>
+</html>

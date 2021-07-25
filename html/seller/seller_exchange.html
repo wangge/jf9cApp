@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>电子券订单验证</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+</head>
+<style>
+  .vr_info{padding:0 0 0 12px;font-size:18px;text-align:left;}
+</style>
+<body>
+<header id="header" class="fixed">
+ <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-title">
+      <h1>电子券订单验证</h1>
+    </div>
+    <div class="header-r"> <a id="header-nav" onClick="order_scan();" href="javascript:void(0);" ><i class="scan"></i></a> </div>
+  </div>
+</header>
+<div class="wtm-main-box fixed-Width">
+  <div class="wtm-inp-con">
+    <form action="" method ="">
+      <ul class="form-box">
+        <li class="form-item">
+          <h4>兑 换 码</h4>
+          <div class="input-box">
+            <input type="text" placeholder="输入用户订单兑换码" class="inp" name="vr_code" id="vr_code" oninput="writeClear($(this));"/>
+            <span class="input-del"></span> </div>
+        </li>
+      </ul>
+
+      <div class="error-tips"></div>
+      <div class="form-btn"><a href="javascript:void(0);" class="btn" id="submitbtn">开始验证</a></div>
+    </form>
+  </div>
+  <div id="order_info"></div>
+</div>
+<script type="text/html" id="order_vr">
+<div class="wtm-oredr-detail-block mt5">
+<ul class="order-log">
+	<li class="order-state" style="color:#ff6600"></li>
+	<li class="vr_code"></li>
+    <li class="goods_content"></li>
+    <li class="goods_sn"></li>
+	<li class="buyer_name"></li>
+    <li class="liuyan"></li>
+	<li><a style="background: #4AC0AD;color:#fff !important; border: 1px solid #4AC0AD;" href="" class="btn" id="loginbtn">继续验证</a></li>
+	</ul>
+    </div>
+	</div>
+
+</script>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/common-seller.js"></script>
+<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../../js/html/seller/seller_exchange.js"></script>
+        <script type="text/javascript">
+        apiready = function(){
+       };
+        function order_scan() {
+          FNScanner = api.require('FNScanner');
+                FNScanner.openScanner({
+                     autorotation: true
+                }, function(ret, err) {
+                    if (ret) {
+                        //alert(code);
+					$.ajax({
+						url: MapiUrl + "/index.php?w=seller_order_vr&t=exchange",
+						data: {
+							vr_code:ret
+						},
+						type: "get",
+						jsonp:'callback',
+						dataType:'json',
+						success: function(e) {
+							if (e.datas.error) {
+								errorTipsShow("<p>" + e.datas.error + "</p>")
+							}else{
+								var data = e.datas;
+								var html = template.render('order_vr', data);
+								$("#order_info").html(html);
+								$(".wtm-inp-con").hide();
+								$(".vr_code").html('兑换码：'+code);
+								$(".goods_content").html('商品信息：'+data.goods_name);
+								$(".goods_sn").html('订单号：'+data.order_sn);
+								$(".buyer_name").html('会员名：'+data.buyer_name);
+								$(".liuyan").html('留言：'+data.buyer_msg);
+								$(".order-state").html('状态：已消费');
+								errorTipsShow("<p>验证成功</p>");
+							}
+						}
+					});
+                    } else {
+                        alert("扫码失败或取消了扫码");
+                    }
+                });
+        }
+
+        </script>
+</body>
+</html>

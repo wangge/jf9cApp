@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>店铺概况</title>
+<link rel="stylesheet" type="text/css" href="../../css/base.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/seller_stat.css">
+</head>
+<body>
+<header class="fixed">
+ <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-title">
+      <h1>店铺统计</h1>
+    </div>
+  </div>
+</header>
+<div class="wtm-main-box">
+  <div id="fixed_nav" class="wtm-single-nav">
+    <ul id="filtrate_ul" class="w25h">
+      <li class="selected"><a href="javascript:void(0);" data-state="" id="onlinegoods">店铺概况</a></li>
+      <!--<li><a href="seller_stat_goodslist.html" data-state="goods_list" id="goodslist">店铺统计</a></li>-->
+      <li><a href="seller_stat_storeflow.html" data-state="store_flow" id="storeflow">店铺流量</a></li>
+      <li><a href="seller_stat_goodsflow.html" data-state="goods_flow" id="goodsflow">商品流量</a></li>
+      <li><a href="seller_stat_hotgoods.html" data-state="hot_goods" id="hotgoods">热销排行</a></li>
+    </ul>
+  </div>
+    <div class="alert ">
+      <ul class="mt5">
+        <li>1、符合以下任何一种条件的订单即为有效订单：1）采用在线支付方式支付并且已付款；2）采用线下付款方式支付并且交易已完成</li>
+        <li>2、以下关于订单和订单商品近7天统计数据的依据为：从昨天开始最近7天的有效订单</li>
+        <li>3、手机端商家中心报表统计最近7天数据,如需查看更多请登录pc端商家中心进行查看</li>
+       </ul>
+    </div>
+    <div class="alert alert-info mt5" style="clear:both;" id="seller_stat">
+  <div style="clear:both;"></div>
+  </div>
+<div id="container"></div>
+<!--  <div class="wtm-order-list">
+    <ul id="order-list">
+    </ul>
+  </div>
+    <div class="wtm-order-list">
+    <ul id="seller_info">
+    </ul>
+  </div>
+<div class="wtm-order-list">
+    <ul id="seller_other">
+    </ul>
+  </div>-->
+</div>
+<!--统计-->
+<script type="text/html" id="seller_stat_index">
+	<ul class="mt5">
+    <li>
+      <span class="h30" style="display:block;">
+        <i title="店铺从昨天开始最近7天有效订单的总金额" class="tip icon-question-sign"></i>
+        近7天下单金额：<% if(statnew_arr.orderamount >0){%><strong><%= statnew_arr.orderamount %>元</strong><% }else { %><strong>0.00元</strong><% } %>
+      </span>
+    <span class="h30" style="display:block;">
+      <i title="店铺从昨天开始最近7天有效订单的会员总数" class="tip icon-question-sign"></i>
+      近7天下单会员数：<% if(statnew_arr.ordermembernum >0){%><strong><%= statnew_arr.ordermembernum %></strong><% }else { %><strong>0</strong><% } %>
+    </span>
+    <span class="h30" style="display:block;">
+      <i title="店铺从昨天开始最近7天有效订单的总订单数" class="tip icon-question-sign"></i>
+      近7天下单量：<% if(statnew_arr.ordernum >0){%><strong><%= statnew_arr.ordernum %></strong><% }else { %><strong>0</strong><% } %>
+    </span>
+    <span class="h30" style="display:block;">
+      <i title="店铺从昨天开始最近7天有效订单的总商品数量" class="tip icon-question-sign"></i>
+      近7天下单商品数：<% if(statnew_arr.ordergoodsnum >0){%><strong><%= statnew_arr.ordergoodsnum %></strong><% }else { %><strong>0</strong><% } %>
+    </span>
+      <span class="h30" style="display:block;">
+        <i title="店铺从昨天开始最近7天有效订单的平均每个订单的交易金额" class="tip icon-question-sign"></i>
+        平均客单价：<% if(statnew_arr.avgorderamount >0){%><strong><%= statnew_arr.avgorderamount %>元</strong><% }else { %><strong>0.00元</strong><% } %>
+      </span>
+      <span class="h30" style="display:block;">
+        <i title="店铺从昨天开始最近7天有效订单商品的平均每个商品的成交价格" class="tip icon-question-sign"></i>
+        平均价格：<% if(statnew_arr.avggoodsprice >0){%><strong><%= statnew_arr.avggoodsprice %>元</strong><% }else { %><strong>0.00元</strong><% } %>
+      </span>
+      <span class="h30" style="display:block;">
+        <i title="店铺所有商品的总收藏次数" class="tip icon-question-sign"></i>
+        商品收藏量：<% if(statnew_arr.gcollectnum >0){%><strong><%= statnew_arr.gcollectnum %></strong><% }else { %><strong>0</strong><% } %>
+      </span>
+      <span class="h30" style="display:block;">
+        <i title="店铺拥有商品的总数（仅计算商品种类，不统计库存）" class="tip icon-question-sign"></i>
+        商品总数：<% if(statnew_arr.goodsnum >0){%><strong><%= statnew_arr.goodsnum %></strong><% }else { %><strong>0</strong><% } %>
+      </span>
+      <span class="h30" style="display:block;">
+        <i title="店铺总收藏次数" class="tip icon-question-sign"></i>
+        店铺收藏量：<% if(statnew_arr.store_collect >0){%><strong><%= statnew_arr.store_collect %></strong><% }else { %><strong>0</strong><% } %>
+      </span>
+      <span class="w400 fl h30" style="display:block;">
+        <i title="店铺从昨天开始最近7天有效订单的下单频繁的时间点" class="tip icon-question-sign"></i>
+        下单高峰期：<% if(statnew_arr.hothour){%><strong><%= statnew_arr.hothour %></strong><% }else { %><strong>暂无</strong><% } %>
+      </span>
+    </li>
+  </ul>
+</script>
+    <!--
+<script type="text/html" id="seller_stat_info">
+  <div class="alert alert-info" style="margin-bottom:0px;"><strong>建议推广商品</strong>
+    &nbsp;<i title="统计店铺从昨天开始7日内热销商品前30名，建议推广以下商品，提升推广回报率" class="tip icon-question-sign">统计店铺从昨天开始7日内热销商品前30名，建议推广以下商品，提升推广回报率</i>
+  </div>
+    <table class="wtsc-default-table">
+      <thead>
+        <tr class="sortbar-array">
+          <th class="align-center">序号</th>
+          <th class="align-center">商品名称</th>
+          <th class="align-center">销量</th>
+        </tr>
+      </thead>
+      <tbody id="datatable">
+      	<% if(goodstop30_arr.length > 0){ %>
+      		<% for (var i=0; i < goodstop30_arr.length; i++) { var vrr = goodstop30_arr[i]; %>
+
+            <tr class="bd-line">
+              <td class="w50"><%=i+1 %></td>
+              <td class="tl">
+                <span class="over_hidden w340 h20">
+                  <a href="./../goods_detail.html?goods_id=<%=goodstop30_arr[i].goods_id %>" target="_blank"><%=goodstop30_arr[i].goods_name %></a>
+                </span>
+              </td>
+              <td class="w50"><%=goodstop30_arr[i].ordergoodsnum %></td>
+            </tr>
+            <% } %>
+          <% }else{ %>
+        <tr>
+          <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+        </tr>
+         <% } %>
+      </tbody>
+    </table>
+</script>
+<script type="text/html" id="seller_stat_other">
+  <div class="alert alert-info" style="margin-bottom:0px;"><strong>同行热卖</strong>
+    &nbsp;<i title="拥有相同经营类目同行店铺热销商品推荐，了解行业热卖便于调整商品结构" class="tip icon-question-sign">拥有相同经营类目同行店铺热销商品推荐，了解行业热卖便于调整商品结构</i>
+  </div>
+    <table class="wtsc-default-table">
+      <thead>
+        <tr class="sortbar-array">
+          <th class="align-center">序号</th>
+          <th class="align-center">商品名称</th>
+          <th class="align-center">销量</th>
+        </tr>
+      </thead>
+      <tbody id="datatable">
+      	<% if(othergoodstop30_arr.length > 0){ %>
+      		<% for (var i=0; i < othergoodstop30_arr.length; i++) { var vrr = othergoodstop30_arr[i]; %>
+
+            <tr class="bd-line">
+              <td class="w50"><%=i+1 %></td>
+              <td class="tl">
+                <span class="over_hidden w340 h20">
+                  <a href="./../goods_detail.html?goods_id=<%=othergoodstop30_arr[i].goods_id %>" target="_blank"><%=othergoodstop30_arr[i].goods_name %></a>
+                </span>
+              </td>
+              <td class="w50"><%=othergoodstop30_arr[i].ordergoodsnum %></td>
+            </tr>
+            <% } %>
+          <% }else{ %>
+        <tr>
+          <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+        </tr>
+         <% } %>
+      </tbody>
+    </table>
+</script>
+-->
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/common-seller.js"></script>
+<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+<script type="text/javascript" src="../../js/html/seller/seller_stat_index.js"></script>
+<script type="text/javascript" src="../../js/highcharts.js"></script>
+</body>
+</html>

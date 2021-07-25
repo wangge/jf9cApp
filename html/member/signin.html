@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style"
+ content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>签到领积分</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<script src="html5plus://ready"></script>
+<style type="text/css">
+.s-dialog-wrapper { width: 12rem; height: 14.5rem; top: 50%; left: 50%; margin-top: -7.25rem; margin-left: -6rem; }
+.s-dialog-content h4 { font-size: 0.6rem; line-height: 1rem; }
+.s-dialog-content ul { margin-top: 0.5rem; }
+.s-dialog-content li { font-size: 0.6rem; line-height: 0.8rem; margin-bottom: 0.2rem; text-align: left; }
+.s-dialog-btn-wapper a { width: 100%; }
+</style>
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"><a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <div class="header-title"><h1>签到领积分</h1></div>
+  </div>
+</header>
+<div class="member-top">
+  <div class="my-pointnum"> 我的积分<span id="pointnum"></span> </div>
+  <div class="sign-box" id="signdiv" >
+    <div id="signinbtn" class="sign-btn" style="display:none;">
+      <h2>签到</h2>
+      <h6>+<span id="points_signin">5</span> 积分</h6>
+    </div>
+    <div id="completedbtn" class="sign-btn" style="display:none;">
+      <h2>已签到</h2>
+      <h6>~明天见~</h6>
+    </div>
+  </div>
+</div>
+<div class="signin-list">
+  <h3>签到记录<a onclick="WtOpenUrl(this)" url="pointslog_list.html">积分记录</a></h3>
+  <ul id="loglist" class="wtm-default-list">
+  </ul>
+</div>
+<script type="text/html" id="loglist_tpl">
+    <% if(signin_list.length >0){%>
+    <% for (var k in signin_list) { var v = signin_list[k]; %>
+    <li class="signin-c">
+       会员积分<em>+<%=v.sl_points %></em><span><%=v.sl_addtime_text %>日签到获得</span>
+    </li>
+    <%}%>
+    <li class="loading"><div class="spinner"><i></i></div>数据读取中</li>
+    <% }else { %>
+    <div class="wtm-norecord signin" style="top: 70%;">
+        <div class="norecord-ico"><i></i></div>
+        <dl>
+            <dt>您还没有任何签到记录</dt>
+			<dd>每日签到可获得会员积分奖励</dd>
+        </dl>
+    </div>
+    <% } %>
+</script> 
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script> 
+<script type="text/javascript" src="../../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../../js/template.js"></script> 
+<script type="text/javascript" src="../../js/common.js"></script> 
+<script type="text/javascript" src="../../js/simple-plugin.js"></script> 
+<script type="text/javascript" src="../../js/wtscroll-load.js"></script> 
+<script>
+apiready=function(){
+    //监听返回事件
+    api.addEventListener({
+        name: 'LoginTo'
+    }, function(ret, err) {
+        location.reload();
+    });
+}
+
+    var key = $api.getStorage('key');
+    if (!key) {
+        location.href = 'login.html';
+		//return false;
+    }
+    function showSignin(){
+        //检验是否能签到
+        $.getJSON(MapiUrl + '/index.php?w=member_signin&t=checksignin', {'key':key}, function(result){
+            if(result.code == 200){
+                $("#points_signin").html(result.datas.points_signin);
+                $("#signinbtn").show();
+                $("#completedbtn").hide();
+            }else{
+                if (result.state == 'isclose') {//如果关闭了签到功能，则不显示签到按钮
+                    location.href = '../../index.html';
+                }else{//如果已经签到完成，则显示已签到
+                    $("#signinbtn").hide();
+                    $("#completedbtn").show();
+                }
+            }
+        });
+    }
+    //加载签到日志
+    var load_class = new wtScrollLoad();
+    function getSigninLog(){
+        load_class.loadInit({
+            'url':MapiUrl + '/index.php?w=member_signin&t=signin_list',
+            'getparam':{key:key},
+            'tmplid':'loglist_tpl',
+            'containerobj':$("#loglist"),
+            'iIntervalId':true
+        });
+    }
+
+    $(function(){
+        showSignin();
+        //获取会员积分
+        $.getJSON(MapiUrl + '/index.php?w=member_index&t=my_asset', {'key':key,'fields':'point'}, function(result){
+            $("#pointnum").html(result.datas.point);
+        });
+        getSigninLog();
+        $("#signinbtn").click(function(){
+            if ($("#signinbtn").hasClass('loading')) {
+                return false;
+            }
+            $("#signinbtn").addClass('loading');
+            //获取详情
+            $.getJSON(MapiUrl + '/index.php?w=member_signin&t=signin_add', {'key':key}, function(result){
+                if(result.code == 200){
+                    $("#pointnum").html(result.datas.point);
+                    $("#completedbtn").show();
+                    $("#signinbtn").hide();
+                    getSigninLog();
+                }
+                $("#signinbtn").removeClass('loading');
+            });
+        });
+    });
+</script>
+</body>
+</html>

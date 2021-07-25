@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	</head>
+	<body>
+<header id="header" class="fixed index">
+	  <div class="header-l"><a onclick="WTmember(4)" url="html/member/member.html"><i class="user"></i></a></div>
+    <div class="header-box"><a onclick="WtfootUrl(this)" url="html/search.html" class="header-inp"> <i class="icon"></i> <span class="search-input" id="keyword">请输入关键词</span> </a> </div>
+   <div class="header-r"> <a onclick="WtfootUrl(this)" url="html/member/im_list.html"><i class="message"></i><sup></sup></a></div>
+
+  <div class="wtm-scroll-nav fixed-Width">
+    <div class="nav-content wai" id="nav-content">
+      <ul id="nav-show-class" class="nav">
+      </ul>
+    </div>
+</div>
+  </header>
+<div class="fixed-Width pt">
+<div id="main-container1"></div>
+<div id="ico_set"></div>
+<div id="getgg"></div>
+<div class="wtm-home-box" id="main-container2"></div>
+<div class="wtm-home-block item-goods">
+    <div class="tit-bar"><span>猜你喜欢</span></div>
+    <ul class="goods-list" >
+        <span id="get_browse"></span>
+        <span id="get_like"></span>
+    </ul>
+</div>
+</div>
+<footer id="footer"></footer>
+<script type="text/html" id="getgg_tpl">
+<div class="wt-gd-body">
+<span><a onclick="WtOpenUrl(this)" url="html/article_list.html?ac_id=1">更多...</a></span>
+<img class="component-typewt-logo" src="images/gg_w.png" height="22" width="22">
+<div class="rollTextMenus">
+<div class="swiper-container swiper-no-swiping swiper-container-vertical" id="notice">
+<div class="swiper-wrapper">
+<% for (var i=0;i<article_list.length;i++) {%>
+ <div class="swiper-slide">
+ <a onclick="WtOpenUrl(this)" url="html/article_show.html?article_id=<%=article_list[i].article_id%>"><%=article_list[i].article_title%></a>
+</div>
+  <% } %>
+</div>
+</div>
+</div>
+</div>
+</script>
+<script type="text/html" id="show_list">
+<div class="show_list">
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+    <% for (var i in item) { %>
+        <div class="swiper-slide">
+        <a onclick="WtOpenUrl(this)" url="<%= item[i].url %>"><img src="<%= item[i].image %>" alt=""></a></div>
+         <% } %>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+</div>
+</script>
+<script type="text/html" id="home1">
+	<div class="wtm-home-block">
+	<% if (title) { %>
+		<div class="tit-bar"><span><%= title %></span></div>
+	<% } %>
+		<div class="item-pic">
+			<a onclick="WtOpenUrl(this)" url="<%= url %>">
+				<img src="<%= image %>" alt="">
+			</a>
+		</div>
+	</div>
+</script>
+<script type="text/html" id="home2">
+	<div class="wtm-home-block">
+	<% if (title) { %>
+		<div class="tit-bar"><span><%= title %></span></div>
+	<% } %>
+		<ul class="item-pic-l1-r2">
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= square_url %>"><img src="<%= square_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle1_url %>"><img src="<%= rectangle1_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle2_url %>"><img src="<%= rectangle2_image %>" alt=""></a>
+			</li>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="home3">
+	<div class="wtm-home-block">
+	<% if (title) { %>
+		<div class="tit-bar"><span><%= title %></span></div>
+	<% } %>
+		<ul class="item-pic-list">
+		<% for (var i in item) { %>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= item[i].url %>"><img src="<%= item[i].image %>" alt=""></a>
+			</li>
+		<% } %>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="home4">
+	<div class="wtm-home-block">
+	<% if (title) { %>
+		<div class="tit-bar"><span><%= title %></span></div>
+	<% } %>
+		<ul class="item-pic-l2-r1">
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle1_url %>"><img src="<%= rectangle1_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle2_url %>"><img src="<%= rectangle2_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= square_url %>"><img src="<%= square_image %>" alt=""></a>
+			</li>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="home5">
+	<div class="wtm-home-block style_lc">
+	<% if (title) { %>
+		<div class="tit-bar"><span><%= title %></span></div>
+		<% if (stitle) { %>
+		<div class="stit"><%= stitle %></div>
+		<% } %>
+	<% } %>
+		<ul class="item-pic-l1-r2">
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= square_url %>"><img src="<%= square_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle1_url %>"><img src="<%= rectangle1_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle2_url %>"><img src="<%= rectangle2_image %>" alt=""></a><a onclick="WtOpenUrl(this)" url="<%= rectangle3_url %>"><img src="<%= rectangle3_image %>" alt=""></a>
+			</li>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="home6">
+	<div class="wtm-home-block style_lc">
+	<% if (title) { %>
+		<div class="tit-bar">
+		<img src="<%= lcurl %>" alt="">
+		<span><%= title %></span>
+		<span class="stit"><%= stitle %></span>
+		</div>
+	<% } %>
+		<ul class="item-pic-w3">
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= square_url %>"><img src="<%= square_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle1_url %>"><img src="<%= rectangle1_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle2_url %>"><img src="<%= rectangle2_image %>" alt=""></a>
+			</li>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="home7">
+<div class="wtm-home-nav">
+	<ul>
+	 <li><a onclick="WtOpenUrl(this)" url="<%= square_url %>"><span><i style="background:<%= square_ico_color %> url(<%= square_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= square_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle1_url %>"><span><i style="background:<%= rectangle1_ico_color %> url(<%= rectangle1_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle1_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle2_url %>"><span><i style="background:<%= rectangle2_ico_color %> url(<%= rectangle2_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle2_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle3_url %>"><span><i style="background:<%= rectangle3_ico_color %> url(<%= rectangle3_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle3_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle4_url %>"><span><i style="background:<%= rectangle4_ico_color %> url(<%= rectangle4_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle4_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle5_url %>"><span><i style="background:<%= rectangle5_ico_color %> url(<%= rectangle5_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle5_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle6_url %>"><span><i style="background:<%= rectangle6_ico_color %> url(<%= rectangle6_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle6_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle7_url %>"><span><i style="background:<%= rectangle7_ico_color %> url(<%= rectangle7_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle7_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle8_url %>"><span><i style="background:<%= rectangle8_ico_color %> url(<%= rectangle8_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle8_ico_name %></p></a>
+	  </li>
+	  <li><a onclick="WtOpenUrl(this)" url="<%= rectangle9_url %>"><span><i style="background:<%= rectangle9_ico_color %> url(<%= rectangle9_image %>) no-repeat 50% 50%;background-size:85% 85%;"></i></span><p><%= rectangle9_ico_name %></p></a>
+	  </li>
+	</ul>
+    </div>
+</script>
+<script type="text/html" id="home8">
+	<div class="wtm-home-block style_lc">
+	<% if (title) { %>
+		<div class="tit-bar">
+		<img src="<%= lcurl %>" alt="">
+		<span><%= title %></span>
+		<span class="stit"><%= stitle %></span>
+		</div>
+	<% } %>
+		<ul class="item-pic-w4">
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= square_url %>"><img src="<%= square_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle1_url %>"><img src="<%= rectangle1_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle2_url %>"><img src="<%= rectangle2_image %>" alt=""></a>
+			</li>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="<%= rectangle3_url %>"><img src="<%= rectangle3_image %>" alt=""></a>
+			</li>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="goods">
+	<div class="wtm-home-block item-goods">
+	<% if (title) { %>
+		<div class="tit-bar"><span><%= title %></span></div>
+	<% } %>
+		<ul class="goods-list">
+		<% for (var i in item) { %>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="html/goods_detail.html?goods_id=<%= item[i].goods_id %>">
+					<div class="goods-pic"><img src="<%= item[i].goods_image %>" alt=""></div>
+					<dl class="goods-content">
+						<dt class="goods-name"><%= item[i].goods_name %></dt>
+						<dd class="goods-price">￥<em><%= item[i].goods_sale_price %></em></dd>
+					</dl>
+				</a>
+			</li>
+		<% } %>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="goods1">
+<div class="wtm-home-block xianshi">
+    <% if (title) { %>
+	<div class="tit-bar"><span><%= title %></span></div>
+	<% } %>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+        <% for (var i in item) { %>
+        <div class="swiper-slide">
+                    <a onclick="WtOpenUrl(this)" url="html/goods_detail.html?goods_id=<%= item[i].goods_id %>">
+                        <div class="goods-pic"><img src="<%= item[i].goods_image %>" alt=""></div>
+                        <dl class="goods-content">
+                            <dt class="goods-name"><%= item[i].goods_name %></dt>
+                            <dd class="goods-price">￥<em><%= item[i].xianshi_price %></em> <del>￥<%= item[i].goods_price %></del></dd>
+                            <dd class="goods-time">剩余<span class="time-remain" count_down="<%= item[i].time; %>"><em time_id="d"></em>天<em time_id="h"></em>:<em time_id="m"></em>:<em time_id="s"></em></span></dd>
+                        </dl>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+</script>
+<script type="text/html" id="goods2">
+	<div class="wtm-home-block item-goods">
+	<% if (title) { %>
+		<div class="tit-bar"><span><%= title %></span></div>
+	<% } %>
+		<ul class="goods-list">
+		<% for (var i in item) { %>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="html/goods_detail.html?goods_id=<%= item[i].goods_id %>">
+					<div class="goods-pic"><img src="<%= item[i].goods_image %>" alt=""></div>
+					<dl class="goods-content">
+						<dt class="goods-name"><em class="goods-group">抢购</em><%= item[i].goods_name %></dt>
+						<dd class="goods-price">￥<em><%= item[i].goods_sale_price %></em></dd>
+					</dl>
+			</a>
+				</li>
+
+		<% } %>
+		</ul>
+	</div>
+</script>
+<script type="text/html" id="nav-class-list">
+	<li class="active">
+				<a onclick="WtOpenUrl(this)" url="html/goods_list.html" class="gc_active" date-id="0">最新推荐</a>
+			</li>
+	<% if(list.length >0){%>
+		<% for(var i = 0;i<list.length;i++){ if(list[i].is_show==1){ continue;} %>
+			<li>
+				<a onclick="WtOpenUrl(this)" url="html/goods_list.html?gc_id=<%= list[i].gc_id %>&gc_name=<%= list[i].gc_name %>" class="gc_active" date-id="<%= list[i].gc_id %>"><%= list[i].gc_name %></a>
+			</li>
+        <%}%>
+    <%}else{%>
+
+    <%}%>
+</script>
+<script type="text/html" id="like_list">
+<% if(goodsbrowse_list.length>0){%>
+        <% for (var i=0;i<goodsbrowse_list.length;i++){%>
+        <li>
+            <a href="html/goods_detail.html?goods_id=<%=goodsbrowse_list[i].goods_id%>">
+                <div class="goods-pic"><img src="<%=goodsbrowse_list[i].goods_image_url%>"/></div>
+                <dl class="goods-content">
+                    <dt class="goods-name"><%=goodsbrowse_list[i].goods_name%></dt>
+                    <dd class="goods-price">￥<em><%=goodsbrowse_list[i].goods_price%></em></dd>
+                </dl>
+            </a>
+        </li>
+    <% } %>
+    <%}%>
+</script>
+<script type="text/html" id="browse_list">
+<% if(goodsbrowse_list.length>0){%>
+        <% for (var i=0;i<goodsbrowse_list.length;i++){%>
+        <li>
+            <a href="html/goods_detail.html?goods_id=<%=goodsbrowse_list[i].goods_id%>">
+                <div class="goods-pic"><img src="<%=goodsbrowse_list[i].goods_image_url%>"/></div>
+                <dl class="goods-content">
+                    <dt class="goods-name"><%=goodsbrowse_list[i].goods_name%></dt>
+                    <dd class="goods-price">￥<em><%=goodsbrowse_list[i].goods_sale_price%></em></dd>
+                </dl>
+            </a>
+        </li>
+    <% } %>
+    <%}%>
+</script>
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/simple-plugin.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+apiready = function () {
+	confirmPermission('storage,camera,photos',{
+    callback:function(){
+        //console.log('storage本地存储权限已获取!');
+    }
+});
+	refreshList();
+	$(function(){
+	  loadpopup();
+	});
+	function loadpopup(){
+	  var appok = $api.getStorage('appok');
+	  if(appok == null) {
+	  openpopup();
+		$api.setStorage('appok','yes');
+	  }
+	}
+	function openpopup(){
+				api.openFrame({
+						name: 'dialog',
+						url: 'agree.html',
+						rect: {
+										x:0,
+										y:0,
+										w:api.winWidth,
+										h:api.winHeight
+						},
+						bgColor: 'rgba(0,0,0,0.6)',
+										bounces: false
+			});
+	}
+}
+</script>
+</body>
+</html>

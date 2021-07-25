@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>会员中心</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<script src="html5plus://ready"></script>
+</head>
+<body>
+<header id="header" class="transparent">
+  <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"><i class="backw"></i></a></div>
+    <div class="header-title">
+      <h1>会员中心</h1>
+    </div>
+    <div class="header-r">
+		<a onclick="WtLoginUrl(this)" url="im_list.html"><i class="message"></i><sup></sup></a>
+		<a onclick="WtLoginUrl(this)" url="member_account.html"><i class="set"></i></a></div>
+  </div>
+</header>
+<div class="scroller-body">
+  <div class="scroller-box">
+    <div class="member-top"></div>
+    <div class="member-center">
+      <dl class="mt5">
+        <dt><a onclick="WtLoginUrl(this)" url="order_list.html">
+          <h3>我的订单</h3>
+          <h5><i class="arrow-r"></i></h5>
+          </a></dt>
+        <dd>
+          <ul id="order_ul">
+          </ul>
+        </dd>
+      </dl>
+	 <dl class="mt5">
+        <dt>
+          <h3>推广返利</h3></dt>
+        <dd>
+			<a onclick="WtLoginUrl(this)" url="member_invite.html">
+			<div class="box">
+			<span class="ico-point"><i></i></span>
+			<span class="title">积分推广</span>
+			<span class="txt">邀请好友得积分</span>
+			</div>
+			</a>
+		  <a onclick="WtLoginUrl(this)" url="../../fenxiao/index.html">
+		  <div class="box">
+			<span class="ico-dis"><i></i></span>
+			 <span class="title">佣金推广</span>
+			<span class="txt">邀请好友得佣金</span>
+			</div>
+			</a>
+        </dd>
+      </dl>
+    <dl class="mt5">
+        <dt><a onclick="WtLoginUrl(this)" url="member_assets.html">
+          <h3><i class="ico-assets"></i>我的资产</h3>
+          <h5><i class="arrow-r"></i></h5>
+          </a></dt>
+      </dl>
+    <dl class="mt1">
+        <dt><a onclick="WtLoginUrl(this)" url="member_points.html">
+          <h3><i class="ico-points"></i>积分中心</h3>
+          <h5><i class="arrow-r"></i></h5>
+          </a></dt>
+      </dl>
+     <dl class="mt1">
+        <dt><a onclick="WtLoginUrl(this)" url="member_coupon.html">
+          <h3><i class="ico-coupon"></i>我的优惠</h3>
+          <h5><i class="arrow-r"></i></h5>
+          </a></dt>
+      </dl>
+    <dl class="mt1">
+        <dt><a onclick="WtLoginUrl(this)" url="packet_list.html">
+          <h3><i class="ico-redpacket"></i>我的红包</h3>
+          <h5><i class="arrow-r"></i></h5>
+          </a></dt>
+      </dl>
+    <dl class="mt1">
+        <dt><a onclick="WtLoginUrl(this)" url="address_list.html">
+          <h3><i class="ico-address"></i>收货地址</h3>
+          <h5><i class="arrow-r"></i></h5>
+          </a></dt>
+      </dl>
+    </div>
+    <div class="wtm-all-box">
+    <div class="wtm-all-block item-goods">
+        <div class="tit-bar"><span>为你推荐</span></div>
+        <ul class="goods-list" >
+            <span id="get_browse"></span>
+            <span id="get_like"></span>
+        </ul>
+    </div>
+    </div>
+      
+  </div>
+</div>
+<footer id="footer"></footer>
+<script type="text/html" id="like_list">
+<% if(goodsbrowse_list.length>0){%>
+        <% for (var i=0;i<goodsbrowse_list.length;i++){%>
+        <li>
+            <a href="../goods_detail.html?goods_id=<%=goodsbrowse_list[i].goods_id%>">
+                <div class="goods-pic"><img src="<%=goodsbrowse_list[i].goods_image_url%>"/></div>
+                <dl class="goods-content">
+                    <dt class="goods-name"><%=goodsbrowse_list[i].goods_name%></dt>
+                    <dd class="goods-price">￥<em><%=goodsbrowse_list[i].goods_price%></em></dd>
+                </dl>
+            </a>
+        </li>
+    <% } %>
+    <%}%>
+</script>
+<script type="text/html" id="browse_list">
+<% if(goodsbrowse_list.length>0){%>
+        <% for (var i=0;i<goodsbrowse_list.length;i++){%>
+        <li>
+            <a href="../goods_detail.html?goods_id=<%=goodsbrowse_list[i].goods_id%>">
+                <div class="goods-pic"><img src="<%=goodsbrowse_list[i].goods_image_url%>"/></div>
+                <dl class="goods-content">
+                    <dt class="goods-name"><%=goodsbrowse_list[i].goods_name%></dt>
+                    <dd class="goods-price">￥<em><%=goodsbrowse_list[i].goods_sale_price%></em></dd>
+                </dl>
+            </a>
+        </li>
+    <% } %>
+    <%}%>
+</script>
+<script> var navigate_id ="5";</script>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/html/member.js"></script>
+</body>
+</html>

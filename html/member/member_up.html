@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <title>成为PLUS会员</title>
+  <link rel="stylesheet" type="text/css" href="../../css/base.css">
+  <link rel="stylesheet" type="text/css" href="../../css/member.css">
+  <link rel="stylesheet" type="text/css" href="../../css/common.css">
+  <link rel="stylesheet" type="text/css" href="../../css/cart.css">
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <div class="header-title">
+      <h1>成为PLUS会员</h1>
+    </div>
+    <!-- <div class="header-r"> <a id="header-nav" href="javascript:void(0);"><i class="save"></i></a> </div> -->
+  </div>
+</header>
+<div class="wtm-main-box">
+  <div class="wtm-inp-con">
+    <form action="" method ="">
+      <ul class="form-box">
+
+		<li class="form-item">
+          <h4>升级费用：</h4>
+          <div class="txt-box">
+			<em id="Total" style="color: red">0.00</em>元/年</div>
+        </li>
+      </ul>
+      <div class="error-tips"></div>
+      <div class="form-btn"><a href="javascript:void(0);" class="btn" id="toUp">确认升级</a></div>
+        <div class="register-mobile-tip"> 小提示：成为PLUS会员后，享有专属价格。</div>
+    </form>
+  </div>
+</div>
+<!--底部总金额固定层End-->
+<div class="wtm-bottom-mask">
+  <div class="wtm-bottom-mask-bg"></div>
+  <div class="wtm-bottom-mask-block">
+    <div class="wtm-bottom-mask-top">
+      <p class="wtm-cart-num">本次交易需在线支付<em id="onlineTotal">0.00</em>元</p>
+      <p style="display:none" id="isPayed"></p>
+      <a href="javascript:void(0);" class="wtm-bottom-mask-close"><i></i></a> </div>
+    <div class="wtm-inp-con wtm-inp-cart">
+      <div class="wtm-pay">
+        <div class="spacing-div"><span>在线支付方式</span></div>
+          <div class="pay-sel">
+            <label style="display:none">
+              <input type="radio" name="payment_code" class="checkbox" id="alipay" autocomplete="off" />
+              <span class="alipay">支付宝</span></label>
+              <label style="display:none">
+                <input type="radio" name="payment_code" class="checkbox" id="wxpay" autocomplete="off" />
+                <span class="wxpay">APP微信</span></label>
+          </div>
+      </div>
+      <div class="pay-btn"> <a href="javascript:void(0);" id="toPay" class="btn-l">确认支付</a> </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../../js/html/pay_common.js"></script>
+<script>
+$(function(){
+    var key = $api.getStorage('key');
+    if(!key){
+      window.location.href = 'login.html';
+    }
+    //没有手机验证时提示
+    $.ajax({
+        type:'get',
+         url:MapiUrl+"/index.php?w=member_account&t=get_mobile_info",
+        data:{key:key},
+        dataType:'json',
+        success:function(result){
+            checkLogin(result.login);
+            if(result.code == 200){
+            	if (!result.datas.state) {
+                     $.sDialog({
+                        skin:"red",
+                        okBtn: true,
+                        okBtnText: "去验证",
+                        content: '先手机验证了，再来申请',
+                        "cancelBtn": true,
+                        "lock":true,
+                        "okFn": function() {
+                            location.href = 'member_mobile_bind.html';
+                        },
+                        "cancelFn": function() {
+                           location.href = 'member.html';
+                        }
+                    });
+                    return false;
+            	}/*else{
+                    $.ajax({
+                        type:'get',
+                        url:MapiUrl+"/index.php?w=member_auth&t=index",
+                        data:{key:key},
+                        dataType:'json',
+                        success:function(result){
+                            if(result.code == 200){
+                                if (result.datas.member_auth == 0) {
+                                     $.sDialog({
+                                        skin:"red",
+                                        okBtn: true,
+                                        okBtnText: "去认证",
+                                        content: '先实名认证了，再来申请',
+                                        "cancelBtn": true,
+                                        "lock":true,
+                                        "okFn": function() {
+                                            location.href = 'member_auth.html';
+                                        },
+                                        "cancelFn": function() {
+                                           location.href = 'member.html';
+                                        }
+                                    });
+                                    return false;
+                                }
+                            }
+                        }
+                    });
+                }*/
+            }
+        }
+	});
+    $.get(MapiUrl+'/index.php?w=member_grade&t=index&key='+key,function(data){
+      if(data.datas.error){
+        $.sDialog({
+          skin:"red",
+          content:data.datas.error,
+          okBtn:true,
+          cancelBtn:false,
+          okFn:function(){
+			WTback();
+		  },
+        });
+      }
+      var count=data.datas.recharge_account;
+      $('#Total').text(count);
+      $('#onlineTotal').text(count);
+    },'json');
+
+  $('#toUp').click(function(){
+    $.ajax({
+      type:'post',
+      url:MapiUrl+'/index.php?w=member_grade&t=up_grade',
+      data:{
+        key:key
+      },
+      dataType:'json',
+      success: function(result){
+
+        checkLogin(result.login);
+        if (result.datas.error) {
+          $.sDialog({
+            skin:"red",
+            content:result.datas.error,
+            okBtn:false,
+            cancelBtn:false
+          });
+          buy_step2 = 0;
+          return false;
+        }
+
+        toPay(result.datas.pay_sn,'member_grade','upgrade_pay');
+
+      }
+    });
+  });
+  $('.wtm-bottom-mask-bg,.wtm-bottom-mask-close').on('click', function(){
+    $('.wtm-bottom-mask').addClass('down').removeClass('up');
+    $('.form-btn').css('display','block');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>站内信</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/chat.css">
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-title">
+      <h1>站内信</h1>
+    </div>
+  </div>
+</header>
+<div class="wtm-main-box">
+  <ul class="wtm-message-list" id="messageList">
+  </ul>
+</div>
+<div class="fix-block-r">
+    <a href="javascript:void(0);" class="gotop-btn gotop hide" id="goTopBtn"><i></i></a>
+</div>
+<input type="hidden" id="pageNum" name="pageNum" value="">
+<input type="hidden" id="pageTotal" name="pageTotal" value="">
+<footer id="footer" class="bottom"></footer>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+<script type="text/javascript" src="../../js/wtscroll-load.js"></script>
+<script>
+    $(function(){
+        var key = $api.getStorage('key');
+        if (!key) {
+            window.location.href = 'login.html';
+            return;
+        }
+        sys_list();
+
+        $(window).scroll(function(){
+            var scrollTop = $(this).scrollTop();//返回匹配元素的滚动条的垂直位置
+            var scrollHeight = $(document).height();//代表了整个文档的高度
+            var windowHeight = $(this).height();//代表了当前可见区域的大小
+            var src_height = parseInt(scrollTop) + parseInt(windowHeight);
+            var all_height = parseInt(scrollHeight) - 400;
+            if(src_height >= all_height){
+            	var pageNum = $('#pageNum').val();
+            	var pageTotal = $('#pageTotal').val();
+            	if(pageNum < pageTotal){
+            		$('#pageNum').val(parseInt(pageNum)+1);
+                	sys_list();
+            	}
+            }
+        });
+
+        function sys_list(){
+        	var pageNum = $('#pageNum').val();
+        	$.ajax({
+                type: 'post',
+                url: MapiUrl + '/index.php?w=member_chat&t=sys_message',
+                data: {key:key,pageNum:pageNum},
+                dataType:'json',
+                success: function(result){
+    				var data = result.datas;
+    				$('#pageNum').val(data.pageNum);
+    				$('#pageTotal').val(data.page);
+    				var html = "";
+    				if(data.list && data.list.length){
+    					for(var i = 0;i < data.list.length;i++){
+    						if(data.list[i].message_open == 1){
+
+                                html = html + '<li><a href="member_message_info.html?id='+data.list[i].message_id+'">'
+                                            + '<div class="avatar"><img src="../../images/message.png"></div>'
+                                            + '<dl><dt style="margin: 0;text-overflow: ellipsis; white-space: nowrap;overflow: hidden;">'+data.list[i].message_body+'</dt>'
+                                            + '<dd>'+data.list[i].message_time+'</dd></dl>';
+                                            + '</a></li>';
+                                }else{
+
+                                  html = html + '<li><a href="member_message_info.html?id='+data.list[i].message_id+'">'
+                                            + '<div class="avatar"><img src="../../images/message.png"><sup></sup></div>'
+                                            + '<dl><dt style="margin: 0;text-overflow: ellipsis;font-weight: 700; white-space: nowrap;overflow: hidden;">'+data.list[i].message_body+'</dt>'
+                                            + '<dd>'+data.list[i].message_time+'</dd></dl>';
+                                            + '</a></li>';
+                                 }
+    					}
+    				}else{
+    					html = html + '<div class="wtm-norecord pdre">'
+    					+ '<div class="norecord-ico"><i></i></div>'
+    					+ '<dl>'
+    					+ '<dt>尚无系统消息</dt>'
+    					+ '</dl>'
+    					+ '</div>';
+    				}
+    				$('#messageList').append(html);
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>帐号设置</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<link rel="stylesheet" type="text/css" href="../css/member.css">
+
+</head>
+<body>
+  <header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"><a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <div class="header-title">
+      <h1>帐号设置</h1>
+    </div>
+  </div>
+
+</header>
+<div class="wtm-main-box">
+  <div id="pd_count" class="wtm-asset-info"><div class="container pre">
+		<i class="icon"></i>
+		    <dl>
+				<dt>最多可提现</dt>
+				<dd>￥<em id="allmoney">0.00</em></dd>
+			</dl>
+	</div></div>
+  <div id="fixed_nav" class="wtm-single-nav">
+    <ul id="filtrate_ul" class="w25h">
+      <ul>
+		<li class="selected"><a href="javascript:void(0);">账户设置</a></li>
+		<li><a onclick="WtOpenUrl(this)" url="fx_commission.html">账户余额</a></li>
+		<li><a onclick="WtOpenUrl(this)" url="fx_cash.html">提现记录</a></li>
+		<li><a onclick="WtOpenUrl(this)" url="fx_apply.html">提现申请</a></li>
+      </ul>
+    </ul>
+
+  </div>
+
+    <div class="wtm-inp-con">
+
+
+    </div>
+
+</div>
+<footer id="footer" class="bottom"></footer>
+<script type="text/html" id="pd_count_model">
+ <ul class="form-box">
+	 <li class="form-item">
+          <h4>用户名</h4>
+          <div class="txt-box"><%=member_name;%></div>
+        </li>
+        <li class="form-item">
+          <h4>手机</h4>
+          <div class="txt-box"><%=member_mobile;%></div>
+        </li>
+		<li class="form-item">
+          <h4>结算方式</h4>
+          <div class="txt-box"><% if(bill_type_code =='alipay'){%>支付宝<%}else if(bill_type_code =='bank'){%>银行<%}%></div>
+        </li>
+		<li class="form-item">
+          <h4>收款人</h4>
+          <div class="txt-box"><%=bill_user_name;%></div>
+        </li>
+		<li class="form-item">
+          <h4>收款账号</h4>
+          <div class="txt-box"><%=bill_type_number;%></div>
+        </li>
+		<% if(bill_type_code =='bank'){%>
+		<li class="form-item">
+          <h4>开户行</h4>
+          <div class="txt-box"><%=bill_bank_name;%></div>
+        </li>
+		<%}%>
+      </ul>
+      <div class="error-tips"></div>
+      <div class="form-btn"><a class="btn" id="btn" href="fx_access_edit.html">编辑</a></div>
+</script>
+<input type="hidden" name="referurl">
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/waypoints.js"></script>
+<script type="text/javascript" src="../js/wtscroll-load.js"></script>
+<script type="text/javascript" src="../js/simple-plugin.js"></script>
+<script>
+    $(function(){
+        var key = $api.getStorage('key');
+		if(!key){
+			window.location.href = '../html/member/login.html';
+			return false;
+		}
+		//获取余额余额
+        $.getJSON(MapiUrl + '/index.php?w=member_fx&t=my_asset', {'key':key,'fields':'predepoit'}, function(result){
+        if(result.code == 400){
+                $.sDialog({
+                  skin:"red",
+                  content:result.datas.error,
+                  okBtn:false,
+                  cancelBtn:false
+                });
+                WTback();
+                return false;
+         }
+            $("#allmoney").html(result.datas.available_fx_trad);
+			 var html = template.render('pd_count_model', result.datas);
+            $(".wtm-inp-con").html(html);
+
+        });
+    });
+</script>
+</body>
+</html>

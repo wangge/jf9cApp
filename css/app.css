@@ -1,0 +1,161 @@
+html,body{
+    height: 100%;
+    background-color: #EEEEF0;
+}
+#wrap{
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-flow: column;
+           flex-flow: column;
+}
+#main{
+    -webkit-box-flex: 1; 
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 1em;
+}
+#main .title{
+    font-size: 0.8em;
+    text-indent: 1em;
+}
+#main .brief{
+    font-size: 0.6em;
+    text-indent: 1.3em;
+}
+#footer{
+    height: 50px; line-height: 50px;
+    background: url(../res/img/shopwt_bottom_bg.9.png) left bottom repeat-x;
+    background-size: 11px 50px;
+    background-color: #81a9c3; 
+    width: 100%;
+    text-align: center;
+}
+#footer h5{
+    color: white;
+}
+.con{font-size: 28px; text-align: center;}
+
+
+/*主页footer自定义*/
+#footer_list{
+    height: 50px;
+    width: 100%;
+    position: relative;
+}
+#footer_list .list_li{
+    float: left;
+    height: 50px;
+    width: 20%;
+    position: relative;
+}
+#footer_list .list_bar{
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    height: 2px;
+    width: 20%;
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+    -webkit-transition: all .25s ease;
+            transition: all .25s ease;
+
+}
+#footer_list .list_bar .list_bar_inner{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    background-color: #C50000;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+#footer_list .home{
+    background: url(../images/home_b.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .home.active{
+    background: url(../images/home_b_2.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .product_first_categroy{
+    background: url(../images/browse_list.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .product_first_categroy.active{
+    background: url(../images/browse_list_2.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .search{
+    background: url(../images/search_ico.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .search.active{
+    background: url(../images/search_ico_2.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .cart_list{
+    background: url(../images/cart_b.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .cart_list.active{
+    background: url(../images/cart_b_2.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .member{
+    background: url(../images/member_b.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .member.active{
+    background: url(../images/member_b_2.png) center 6px no-repeat;
+    background-size: 22px 22px;
+}
+#footer_list .list_li .text{
+    position: absolute;
+    width: 100%;
+    height: 1em;
+    line-height: 1em;
+    left: 0;
+    bottom: 7px;
+    color: #848C98;
+    font-size: 11px;
+}
+#footer_list .list_li.active .text{
+    color: #444F59;
+}
+/*主页footer end*/
+
+/* common响应 */
+.container{
+
+}
+.container:after{
+    clear: both;
+    content: '';
+    display: block;
+}
+.sp1_3,.sp2_3,.sp1_3_big,.sp1_2,.sp1{
+    margin-left: 0.75em;
+    float: left;
+}
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.pull-left{
+    float: left;
+}
+.pull-right{
+    float: right;
+}
+
+/* common响应 end */
+textarea:focus, input:focus{
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; 
+    -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; 
+    outline: none !important;
+}

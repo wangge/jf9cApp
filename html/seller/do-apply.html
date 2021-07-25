@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+        <title>企业开店</title>
+        <link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <link rel="stylesheet" type="text/css" href="../../css/base.css">
+        <link rel="stylesheet" type="text/css" href="../../css/seller.css">
+        <link rel="stylesheet" type="text/css" href="../../css/seller-apply.css">
+    </head>
+    <body>
+        <header id="header" class="fixed">
+            <div class="header-box">
+                <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+                <div class="header-title">
+                    <h1>企业开店</h1>
+                </div>
+            <div class="header-r"> <a id="header-nav" href="seller.html"><i class="home"></i><sup></sup></a> </div>
+            </div>
+        </header>
+        <div class="wtm-inp-con">
+                <div class="member-center apply-center box-wrap-grid">
+                    <dl class="mt5">
+                        <div class="wtm-inp-con">
+                            <form id="msform" enctype="multipart/form-data" method="post">
+                                <!-- progressbar -->
+                                <ul id="progressbar">
+                                    <li class="active step-1">入驻协议</li>
+                                    <li class="step-2">基本信息</li>
+                                    <!--<li class="step-3">财务信息</li>-->
+                                    <li class="step-4">店铺信息</li>
+                                    <li class="step-5">费用信息</li>
+                                    <li class="step-6">店铺开通</li>
+                                </ul>
+                                <!-- fieldsets -->
+                                <fieldset class="step-1">
+                                    <div class="page page-seller-apply">
+                                    <h2 class="fs-title">入驻协议</h2>
+                                    <h3 class="fs-subtitle"></h3>
+                                    <div class="document apply-document"></div>
+                                        </div>
+                                    <input type="button" name="next" class="next action-button" value="同意协议" />
+                                </fieldset>
+                                <fieldset class="step-2">
+                                    <h2 class="fs-title">基本信息</h2>
+                                    <h3 class="form-label">填写基本信息</h3>
+                                    <input type="text" id="company_name" name="company_name" placeholder="公司名称*" />
+                                    <input name="area_info" type="text" class="inp" id="area_info" autocomplete="off" readonly placeholder="公司所在地*"/>
+                                    <input name="pro_id" type="hidden" value="0" id="pro_id" />
+                                    <input name="city_id" type="hidden" value="0" id="city_id" />
+                                    <input name="area_id" type="hidden" value="0" id="area_id" />
+                                    <input type="text" id="company_address_detail" name="company_address_detail" placeholder="公司详细地址*" />
+                                    <!--<input type="text" name="company_employee_count" placeholder="员工人数" />
+                                    <input type="text" name="company_registered_capital" placeholder="注册资金" />-->
+                                    <input type="text" id="contacts_name" name="contacts_name" placeholder="联系人姓名*" />
+                                    <input type="text" id="contacts_phone" name="contacts_phone" placeholder="联系人手机号码*" />
+                                    <!--<input type="text" id="company_phone" name="company_phone" placeholder="公司电话" />-->
+                                    <input type="text" id="contacts_email" name="contacts_email" placeholder="电子邮箱" />
+                                     <div class="paied">
+                                        <h3 class="form-label">营业执照图片*</h3>
+                                        <input type="buttom" name="business_licence_number_elc_file" class="pic_bottom" value="上传图片..." />
+                                        <input type="hidden" name="business_licence_number_elc" id="business_licence_number_elc" />
+                                         <input type="text" name="business_licence_number" placeholder="营业执照号（副本）*">
+                                    </div>
+
+                                    <input type="button" name="previous" class="previous action-button" value="上一步" />
+                                    <input type="button" name="next" step="2" class="next action-button" value="下一步" />
+                                </fieldset>
+                                <!--<fieldset class="step-3">
+                                    <h2 class="fs-title">财务信息</h2>
+                                    <h3 class="form-label">开户银行信息(用于结算)</h3>
+                                    <input type="text" id="bank_account_name" name="bank_account_name" placeholder="银行开户名" />
+                                    <input type="text" name="bank_account_number" placeholder="公司银行账号" />
+                                    <input type="text" name="bank_name" placeholder="开户银行支行名称" />
+                                    <input type="button" name="previous" class="previous action-button" value="上一步" />
+                                    <input type="button" name="next" step="3" class="next action-button" value="下一步" />
+                                </fieldset>-->
+                                <fieldset class="step-4">
+                                    <h2 class="fs-title">店铺信息</h2>
+                                    <h3 class="form-label">店铺经营信息</h3>
+                                    <input type="text" id="seller_name" name="seller_name" readonly placeholder="商家账号*" />
+                                    <div class="input-tips">商家账号与会员用户名一致，只是做平台标记使用</div>
+                                    <input type="text" id="store_name" name="store_name" placeholder="店铺名称*" />
+                                    <div class="input-tips">店铺名称注册后不可修改，请认真填写。</div>
+                                    <h3 class="form-label">店铺等级*</h3>
+                                    <select id="sg_id" class="input input-select" name="sg_id"></select>
+                                    <h3 class="form-label">开店时长</h3>
+                                    <select id="joinin_year" class="input input-select" name="joinin_year">
+                                        <option value="1">1年</option>
+                                        <option value="2">2年</option>
+                                        <option value="3">3年</option>
+                                    </select>
+                                    <h3 class="form-label">店铺分类*</h3>
+                                    <select id="sc_id" class="input input-select" name="sc_id"></select>
+                                    <div class="input-tips">请根据您所经营的内容认真选择店铺分类，注册后商家不可自行修改。</div>
+                                    <h3 class="form-label">经营类目</h3>
+                                    <span id="btn_select_category" class="input input-span">选择添加类目</span>
+                                    <div class="gc-wrap gc-result">
+                                        <dl>
+                                            <dt><span>一级分类</span><span>二级分类</span><span>三级分类</span><span>操作</span></dt>
+                                        </dl>
+                                    </div>
+                                    <input id="store_class" name="store_class" type="hidden" autocomplete="off" />
+                                    <input type="button" name="previous" class="previous action-button" value="上一步" />
+                                    <input type="submit" name="submit" step="4" class="submit action-button" value="提交申请" />
+                                </fieldset>
+                                <fieldset class="step-5">
+                                    <h2 class="fs-title">费用信息</h2>
+                                    <h3 class="fs-subtitle"></h3>
+                                    <div class="paied">
+                                        <h3 class="form-label">付款凭证*</h3>
+                                        <input type="buttom" name="paying_money_certificate" class="pic_bottom" value="上传图片..." />
+                                        <input type="hidden" name="paying_money_certificate_val" id="paying_money_certificate_val" />
+                                        <textarea placeholder="备注" name="paying_money_certif_exp"></textarea>
+                                    </div>
+                                    <input type="button" name="previous" class="previous action-button" value="上一步" />
+                                    <input type="submit" name="submit" class="submit action-button" value="提交" step="5" />
+                                </fieldset>
+                                <fieldset class="step-6">
+                                    <h2 class="fs-title">店铺开通</h2>
+                                    <h3 class="fs-subtitle"></h3>
+                                    <input type="button" name="previous" class="previous action-button" value="上一步" />
+                                    <input type="submit" name="submit" class="submit action-button" value="提交" step="6" />
+                                </fieldset>
+                            </form>
+                        </div>
+                    </dl>
+                </div>
+        </div>
+        <div class="error-tips"></div>
+		<script type="text/javascript" src="../../js/api.js"></script>
+        <script type="text/javascript" src="../../js/zepto.min.js"></script>
+        <script type="text/javascript" src="../../js/config.js"></script>
+        <script type="text/javascript" src="../../js/template.js"></script>
+        <script type="text/javascript" src="../../js/common.js"></script>
+        <script type="text/javascript" src="../../js/simple-plugin.js"></script>
+        <script type="text/javascript" src="../../js/iscroll.js"></script>
+        <script type="text/javascript" src="../../js/html/seller/do-apply.js"></script>
+        <script type="text/html" id="sg_html">
+            <option value="">请选择</option>
+            <% for(var i=0; i<grade_list.length; i++) { %>
+                <option value="<%= grade_list[i].sg_id %>"><%= grade_list[i].sg_name %> (商品数：<%= grade_list[i].sg_goods_limit %> 模板数：<%= grade_list[i].sg_template_number %> 收费标准：<%= grade_list[i].sg_price %> 元/年 附加功能：<%= grade_list[i].function_str %>)</option>
+            <% } %>
+        </script>
+        <script type="text/html" id="sc_html">
+            <option value="">请选择</option>
+            <% for(var i=0; i<store_class.length; i++) { %>
+                <option value="<%= store_class[i].sc_id %>"><%= store_class[i].sc_name %> (保证金：<%= store_class[i].sc_bail %> 元)</option>
+            <% } %>
+        </script>
+        <script type="text/html" id="gc_html">
+            <option value="">请选择</option>
+            <% for(var i=0; i<gc_list.length; i++) { %>
+                <option data-commis-rate="<%= gc_list[i].commis_rate %>" data-explain="<%= gc_list[i].gc_id %>" value="<%= gc_list[i].gc_id %>"><%= gc_list[i].gc_name %></option>
+            <% } %>
+        </script>
+    </body>
+</html>

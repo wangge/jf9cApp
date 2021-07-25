@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>会员注册</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+</head>
+<body>
+<header id="header" class="transparent">
+  <div class="header-box">
+    <div class="header-l"><a onclick="WTback(this)" href="javascript:;"><i class="back"></i></a></div>
+    <div class="header-title">
+      <h1>会员注册</h1>
+    </div>
+  </div>
+</header>
+<div class="wtm-main-box fixed-Width">
+  <div class="wtm-inp-con">
+	<div class="wtm-logo"><img id="logo_src" src="../../images/home_logo.png" width="100" /></div>
+    <form action="" method ="">
+      <ul class="form-box">
+        <li class="form-item">
+          <h4>用户名</h4>
+          <div class="input-box">
+            <input type="text" placeholder="请输入2-20个字符" class="inp" name="username" id="username" oninput="writeClear($(this));"/>
+            <span class="input-del"></span></div>
+        </li>
+        <li class="form-item">
+          <h4>登录密码</h4>
+          <div class="input-box">
+            <input type="password" placeholder="请输入6-20位密码" class="inp" name="pwd" id="userpwd" oninput="writeClear($(this));"/>
+            <span class="input-del"></span></div>
+        </li>
+        <li class="form-item">
+          <h4>确认密码</h4>
+          <div class="input-box">
+            <input type="password" placeholder="请再次输入密码" class="inp" name="password_confirm" id="password_confirm" oninput="writeClear($(this));"/>
+            <span class="input-del"></span></div>
+        </li>
+        <li class="form-item">
+          <h4>邮箱</h4>
+          <div class="input-box">
+            <input type="email" placeholder="请输入常用邮箱" class="inp" name="email" id="email" oninput="writeClear($(this));"/>
+            <span class="input-del"></span></div>
+        </li>
+      </ul>
+      <div class="error-tips"></div>
+      <div class="form-btn"><a href="javascript:void(0);" class="btn" id="registerbtn">注&nbsp;&nbsp;册</a></div>
+      <div class="remember-form">
+        <input id="checkbox" type="checkbox" checked="">
+        <label for="checkbox">同意</label>
+        <span><a onclick="WtOpenupUrl(this)" url="document.html">注册协议</a>、<a onclick="WtOpenUrl(this)" url="privacy.html">隐私政策</a></span>
+		  <span class="forgot-r high" style="display: none"><a onclick="WtOpenUrl(this)" url="register_mobile.html">手机注册<i class="ico-r"></i></a>
+		</span>
+	 </div>
+    </form>
+    <input type="hidden" name="referurl">
+  </div>
+</div>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>  
+<script type="text/javascript" src="../../js/common.js"></script> 
+<script type="text/javascript" src="../../js/simple-plugin.js"></script> 
+<script type="text/javascript" src="../../js/html/register.js"></script>
+</body>
+</html>

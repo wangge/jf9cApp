@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>店铺概况</title>
+<link rel="stylesheet" type="text/css" href="../../css/base.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/seller_stat.css">
+</head>
+<body>
+<header class="fixed">
+ <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-title">
+      <h1>店铺统计</h1>
+    </div>
+  </div>
+</header>
+<div class="wtm-main-box">
+  <div id="fixed_nav" class="wtm-single-nav">
+    <ul id="filtrate_ul" class="w20h">
+      <li class="selected" style="width: 33.3%;"><a href="javascript:void(0);" data-state="" id="onlinegoods">商品详情</a></li>
+      <li style="width: 33.3%;"><a href="seller_stat_price.html" data-state="goods_price" id="price">价格销量</a></li>
+      <li style="width: 33.3%;"><a href="seller_stat_hotgoods.html" data-state="hotgoods" id="hotgoods">热卖商品</a></li>
+    </ul>
+  </div>
+    <div class="alert ">
+  <ul class="mt5">
+    <li>1、符合以下任何一种条件的订单即为有效订单：1）采用在线支付方式支付并且已付款；2）采用线下付款方式支付并且交易已完成</li>
+    <li>2、以下列表为从昨天开始最近7天有效订单中的所有商品数据</li>
+        <li>3、近7天下单商品数：从昨天开始最近7天有效订单的某商品总销量</li>
+        <li>4、近7天下单金额：从昨天开始最近7天有效订单的某商品总销售额</li>
+        <li>5、点击每条记录，查看最近7天下单金额、下单商品数、下单量走势</li>
+      </ul>
+    </div>
+  <div style="clear:both;"></div>
+  </div>
+  <div class="wtm-order-list">
+    <ul id="order-list">
+    </ul>
+  </div>
+</div>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/common-seller.js"></script>
+<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+<script type="text/javascript" src="../../js/html/seller/seller_stat_goodslist.js"></script>
+<script type="text/javascript" src="../../js/highcharts.js"></script>
+</body>
+</html>

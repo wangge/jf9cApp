@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget id="A6077831069593"  version="0.0.1">    <name>ShopWT</name>  <description>ShopWT B2B2C</description>  <author email="web@shopwt.com" href="web@shopwt.com">shopwt.com</author><content src="index.html"/>
+<preference name="pageBounce" value="false"/>
+<preference name="appBackground" value="#fff"/>
+<preference name="windowBackground" value="#fff"/>
+<preference name="frameBackgroundColor" value="#fff"/>
+<preference name="hScrollBarEnabled" value="false"/>
+<preference name="vScrollBarEnabled" value="true"/>
+<preference name="autoLaunch" value="true"/>
+<preference name="fullScreen" value="false"/>
+<preference name="autoUpdate" value="true"/>
+  <preference name="smartUpdate" value="true"/>
+  <preference name="debug" value="false"/>
+  <preference name="iOS7StatusBarAppearance" value="false"/>
+<preference name="statusBarAppearance" value="false"/>
+<preference name="urlScheme" value="WTAPP" />
+<permission name="readPhoneState" />
+<permission name="call"/>
+<permission name="sms"/>
+<permission name="camera" />
+<permission name="record" />
+<permission name="location" />
+<permission name="fileSystem" />
+<permission name="internet" />
+<permission name="bootCompleted"/>
+<permission name="hardware"/>
+<permission name="contact"/>
+<access origin="*"/>
+<feature name="wxPlus">
+<param name="urlScheme" value="wxc30cce0c861cf9bb"/>
+<param name="apiKey" value="wxc30cce0c861cf9bb"/>
+<param name="apiSecret" value="87ddaca3c59d843371d5d9076ddd2166"/>
+<param name="universalLink" value="https://demo.shopwt.com"/>
+</feature>
+<feature name="wxPayPlus">
+<param name="urlScheme" value="wxc30cce0c861cf9bb"/>
+<param name="apiKey" value="wxc30cce0c861cf9bb"/>
+<param name="apiSecret" value="87ddaca3c59d843371d5d9076ddd2166"/>
+<param name="universalLink" value="https://demo.shopwt.com"/>
+</feature><feature name="QQPlus">  <param name="urlScheme" value="tencent101064640" />  <param name="apiKey" value="101064640" /></feature><feature name="weiboPlus"><param name="urlScheme" value="wb1132217156" /><param name="apiKey" value="1132217156" /><param name="registUrl" value="https://demo.shopwt.com" /></feature><feature name="aliPayPlus">  <param name="urlScheme" value="AliPayPlusA000000011" /></feature><preference name="customRefreshHeader" value="UIPullRefreshMotive"/><permission name="querySchemes" value="weixin,wechat,tencent,mqq,mqqapi,sinaweibohd,sinaweibo,weibosdk,weibosdk2.5,alipay,alipayshare" />
+</widget>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<title>商品退款</title>
+<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<link rel="stylesheet" type="text/css" href="../../css/member.css">
+</head>
+<body>
+<header id="header" class="fixed">
+  <div class="header-box">
+    <div class="header-l"> <a onclick="WTback(this)" href="javascript:;"> <i class="back"></i> </a> </div>
+    <div class="header-title">
+      <h1>商品退款</h1>
+    </div></div>
+</header>
+<div class="wtm-main-box mb20">
+  <div class="wtm-order-list" id="order-info-container"></div>
+	<div class="special-tips">
+	<p>特别提示：退款凭证选择直接拍照或从手机相册上传图片时，请注意图片尺寸控制在1M以内，超出请压缩裁剪后再选择上传！</p>
+	</div>
+  <form>
+    <div class="wtm-inp-con">
+      <ul class="form-box">
+        <li class="form-item">
+          <h4>退款原因</h4>
+          <div class="input-box">
+            <select id="refundReason" class="select" name="reason_id">
+            </select>
+            <i class="arrow-down"></i> </div>
+        </li>
+        <li class="form-item">
+          <h4>退款金额</h4>
+          <div class="input-box">
+            <input type="text" pattern="[0-9.]*" class="inp" name="refund_amount" placeholder="退款金额不能超过可退金额">
+            <span class="input-del"></span>
+            <span class="note"><em id="returnAble"></em><h6>最多可退金额</h6></span> </div>
+        </li>
+        <li class="form-item" id="refund_points_number_li" style="display:none;">
+          <h4>退还积分</h4>
+		   <div class="input-box">
+            <input id="refund_points_number" type="text" class="inp" value="" readonly="readonly">
+            <span class="input-del"></span>
+            <span class="note"></span> </div>
+        </li>
+        <li class="form-item">
+          <h4>退款说明</h4>
+          <div class="input-box">
+            <input type="text" class="inp" name="buyer_message" placeholder="输入您要退款的说明文字">
+            <span class="input-del"></span> </div>
+        </li>
+        <li class="form-item upload-item">
+          <h4>退款凭证</h4>
+          <div class="input-box">
+            <div class="wtm-upload"> <a href="javascript:void(0);"> <span>
+              <input type="file" hidefocus="true" size="1" class="input-file" name="refund_pic" id="">
+              </span>
+              <p><i class="icon-upload"></i></p>
+              </a>
+              <input type="hidden" name="refund_pic[0]" value="" />
+            </div>
+            <div class="wtm-upload"> <a href="javascript:void(0);"> <span>
+              <input type="file" hidefocus="true" size="1" class="input-file" name="refund_pic" id="">
+              </span>
+              <p><i class="icon-upload"></i></p>
+              </a>
+              <input type="hidden" name="refund_pic[1]" value="" />
+            </div>
+            <div class="wtm-upload"> <a href="javascript:void(0);"> <span>
+              <input type="file" hidefocus="true" size="1" class="input-file" name="refund_pic" id="">
+              </span>
+              <p><i class="icon-upload"></i></p>
+              </a>
+              <input type="hidden" name="refund_pic[2]" value="" />
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="error-tips"></div>
+      <div class="form-btn"><a href="javascript:void(0);" class="btn-l">提交</a></div>
+    </div>
+  </form>
+</div>
+<footer id="footer"></footer>
+<script type="text/html" id="order-info-tmpl">
+	<div class="wtm-order-item mt5">
+		<div class="wtm-order-item-head">
+			<a onclick="WtOpenUrl(this)" url="../store.html?store_id=<%=order.store_id%>" class="store"><i class="icon"></i><%=order.store_name%><i class="arrow-r"></i></a>
+		</div>
+		<div class="wtm-order-item-con">
+			<div class="goods-block detail">
+				<a onclick="WtOpenUrl(this)" url="../goods_detail.html?goods_id=<%=goods.goods_id%>">
+				<div class="goods-pic">
+					<img src="<%=goods.goods_img_360%>">
+				</div>
+				<dl class="goods-content">
+					<dt class="goods-name"><%=goods.goods_name%></dt>
+					<dd class="goods-type"><%=goods.goods_spec%></dd>
+				</dl>
+				<div class="goods-subtotal">
+					<span class="goods-price">￥<em><%=goods.goods_price%></em></span>
+					<span class="goods-num">x<%=goods.goods_num%></span>
+				</div>
+			</a>
+			</div>
+		</div>
+	</div>
+</script> 
+<script type="text/javascript" src="../../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../../js/template.js"></script> 
+<script type="text/javascript" src="../../js/api.js"></script>
+<script type="text/javascript" src="../../js/config.js"></script> 
+<script type="text/javascript" src="../../js/common.js"></script> 
+<script type="text/javascript" src="../../js/simple-plugin.js"></script> 
+<script type="text/javascript" src="../../js/html/refund.js"></script>
+</body>
+</html>
