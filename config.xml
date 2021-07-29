@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <widget id="A6172635131737"  version="0.0.1">
-    <name>ShopWT</name>
+    <name>金坊酒仓</name>
   <description>ShopWT B2B2C</description>
-  <author email="web@shopwt.com" href="web@shopwt.com">shopwt.com</author>
+  <author email="web@jf9c.com" href="web@jf9c.com">jf9c.com</author>
 <content src="index.html"/>
 <preference name="pageBounce" value="false"/>
 <preference name="appBackground" value="#fff"/>
